@@ -20,7 +20,7 @@ namespace DDD.Domain.Entities
 
         public string Email { get; set; }
 
-        protected DateTime Created { get; private set; }
+        public  DateTime Created { get; private set; }
 
         public bool Active { get; private set; }
 
