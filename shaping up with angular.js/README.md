@@ -92,7 +92,7 @@ Only hide the element if the expression is true
 
 ### ng-repeat
 
-Receive a array for controller and iterate
+Repeat a section for each item an Array
 
 ```html
 <div ng-repeat="product in store.products">
@@ -105,4 +105,37 @@ Receive a array for controller and iterate
 - Directives - HTML annotations that triggers Javascript behaviors
 - Modules - Where our application components live
 - Controllers -  Where we add application behaviors
-- Expressions - How values get displayed within the page 
+- Expressions - How values get displayed within the page
+***
+
+
+## 2.1 Filters and a New Directive
+
+### Directives we know & love
+
+- ng-app - attach the app module to the page `<html ng-app="store">`
+- ng-controller - attach a Controller function to the page `<body ng-controller="StoreController as store">`
+- ng-show / ng-hide - display a section based on an Expression `<h1 ng-show="hasName"> Hello, {{name}}</h1>`
+- ng-repeat - repeat a section for each item an Array
+
+### Our first filter
+
+```html
+  <em class="pull-right">{{product.price | currency}}</em>
+```
+
+- ` | ` Pipe - "send the output into". *Notice it gives the dollar sign (localized). Specifies number of decimals*
+- `currency` - format to currency
+
+### Formatting with Filters
+
+**Our recipe '{{ data* | filter:options}}'**
+
+- date
+- uppercase & lowercase
+- limitTo
+- orderBy
+
+### Using ng-src for images
+
+**Using an expression inside `src` attribute causes an error!**
