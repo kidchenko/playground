@@ -34,6 +34,7 @@ Allow to insert dynamic values in HTML
 https://docs.angularjs.org/guide/expression
 ***
 
+
 ## 1.3 Index HTML Setup
 
 ### Controllers
@@ -67,3 +68,41 @@ Controllers are where we define app behavior defining functions and values
 `StoreController`: Controller name
 
 `store`: Alias for controller name
+***
+
+
+## 1.5 Built-in Directives
+
+### ng-show Directive
+
+Only show the element if the expression is true
+
+
+```html
+<button ng-show="store.product.canPurchase"> Add to Cart</button>
+```
+### ng-hide Directive
+
+Only hide the element if the expression is true
+
+```html
+<div ng-hide="store.product.souldOut">
+</div>
+```
+
+### ng-repeat
+
+Receive a array for controller and iterate
+
+```html
+<div ng-repeat="product in store.products">
+  <h1>{{product.name}}</h1>
+</div>
+```
+
+### What we have learned
+
+- Directives - HTML annotations that triggers Javascript behaviors
+- Modules - Where our application components live
+- Controllers -  Where we add application behaviors
+- Expressions - How values get displayed within the page 
