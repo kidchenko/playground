@@ -6,11 +6,12 @@
     <title></title>
   </head>
   <body ng-controller="StoreController as store">
-    <div class="product row">
+    <div class="product row" ng-repeat="product in store.products">
       <h3>
-        {{ store.product.name }}
-        <em class="pull-right">{{ store.product.price }}</em>
+        {{product.name}}
+        <em class="pull-right">$ {{product.price}}</em>
       </h3>
+      <button ng-show="store.product.canPurchase">Add to cart</button>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
