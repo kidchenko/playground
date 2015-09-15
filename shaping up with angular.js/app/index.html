@@ -2,17 +2,23 @@
 <html ng-app="gemStore">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.css" media="screen" title="no title" charset="utf-8">
     <title></title>
   </head>
-  <body ng-controller="StoreController as store">
+  <body class="container" ng-controller="StoreController as store">
     <div class="product row" ng-repeat="product in store.products">
       <h3>
         {{product.name}}
-        <em class="pull-right">$ {{product.price}}</em>
+        <em class="pull-right">{{product.price | currency}}</em>
       </h3>
+      <div class="gallery">
+        <img ng-src="{{product.images[0]}}" alt="" />
+      </div>
       <button ng-show="store.product.canPurchase">Add to cart</button>
     </div>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js" charset="utf-8"></script>
     <script src="app.js" charset="utf-8"></script>
   </body>
