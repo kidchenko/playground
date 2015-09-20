@@ -139,3 +139,40 @@ Repeat a section for each item an Array
 ### Using ng-src for images
 
 **Using an expression inside `src` attribute causes an error!**
+***
+
+
+
+## 2.6 Tabs Inside Out
+
+### Introducing a new directive
+
+`ng-click`: `ng-click="tab = 1"` assigning a value to *variable*
+
+When `ng-click` changes the value of a variable...
+
+... the `{{variable}}` expression automatically gets updated!
+
+Expression define a 2-way data biding
+
+### Setting the initial value
+
+`ng-init` allows us to use an expression in the current scope
+
+```html
+<section ng-init="tab = 1">
+  {{tab}}
+  <a href ng-click="tab = 2">Click</a>
+<section>
+```
+
+### ng-class directive
+
+`ng-class="{ active:tab == 1 }"`
+
+- `active`: name of the class to set
+- `tab == 1`: expression to evaluate, if true, set the class
+
+### Feels dirty, doesn't it?
+
+**The best choice to put your app logic is in controller**
