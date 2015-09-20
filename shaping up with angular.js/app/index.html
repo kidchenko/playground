@@ -13,9 +13,9 @@
         {{product.name}}
         <em class="pull-right">{{product.price | currency}}</em>
       </h3>
-      <div class="gallery">
+      <div class="gallery" ng-show="{{product.images.length}}">
         <div class="thumbnail">
-              <img ng-src="{{product.images[0]}}" alt="" />
+          <img class="img img-circle img-thumbnail center-block" ng-src="{{product.images[0]}}" alt="" />
           <div class="caption">
             <ul class="clearfix">
               <li class="small pull-left thumbnail" ng-repeat="image in product.images">
