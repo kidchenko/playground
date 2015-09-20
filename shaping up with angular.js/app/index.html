@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.css" media="screen" title="no title" charset="utf-8">
-    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Shaping up with angular.js</title>
   </head>
   <body class="container" ng-controller="StoreController as store">
     <div class="product row" ng-repeat="product in store.products">
@@ -13,9 +14,17 @@
         <em class="pull-right">{{product.price | currency}}</em>
       </h3>
       <div class="gallery">
-        <img ng-src="{{product.images[0]}}" alt="" />
+        <div class="thumbnail">
+              <img ng-src="{{product.images[0]}}" alt="" />
+          <div class="caption">
+            <ul class="clearfix">
+              <li class="small pull-left thumbnail" ng-repeat="image in product.images">
+                <a href="#"><img ng-src="{{image}}" alt="" /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-      <button ng-show="store.product.canPurchase">Add to cart</button>
     </div>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" charset="utf-8"></script>
