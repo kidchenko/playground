@@ -8,13 +8,16 @@
     <title>Shaping up with angular.js</title>
   </head>
   <body class="container" ng-controller="StoreController as store">
-    <div class="product row" ng-repeat="product in store.products">
+    <header>
+      <h1 class="text-center">Flatlander Crafted Gems</h1>
+      <h2 class="text-center">– an Angular store –</h2>
+    </header>
+    <div class="list-group-item" ng-repeat="product in store.products">
       <h3>
         {{product.name}}
         <em class="pull-right">{{product.price | currency}}</em>
       </h3>
-      <div class="gallery" ng-show="{{product.images.length}}">
-        <div class="thumbnail">
+      <section ng-show="{{product.images.length}}">
           <img class="img img-circle img-thumbnail center-block" ng-src="{{product.images[0]}}" alt="" />
           <div class="caption">
             <ul class="clearfix">
@@ -23,8 +26,30 @@
               </li>
             </ul>
           </div>
+      </section>
+      <section class="tab" ng-controller="TabController as tab">
+        <ul class="nav nav-pills">
+          <li ng-class="{ active:tab.isSet(1) }">
+            <a href ng-click="tab.setTab(1)">Description</a>
+          </li>
+          <li ng-class="{ active:tab.isSet(2) }">
+            <a href ng-click="tab.setTab(2)">Specs</a></li>
+          <li ng-class="{ active:tab.isSet(3) }">
+            <a href ng-click="tab.setTab(3)">Reviews</a></li>
+        </ul>
+        <div ng-show="tab.isSet(1)">
+          <h4>Description</h4>
+          <blockquote>{{product.description}}</blockquote>
         </div>
-      </div>
+        <div ng-show="tab.isSet(2)">
+          <h4>Specs</h4>
+          <blockquote>Shine: {{product.shine}}</blockquote>
+        </div>
+        <div ng-show="tab.isSet(3)">
+          <h4>Reviews</h4>
+          <blockquote></blockquote>
+        </div>
+      </section>
     </div>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" charset="utf-8"></script>

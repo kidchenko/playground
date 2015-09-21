@@ -1,3 +1,16 @@
 .small {
   width: 50px;
 }
+
+a {
+  color: #ac005f;
+}
+
+ {
+  background: #ac005f;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:active,
+.nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+  background: #ac005f;
+}
