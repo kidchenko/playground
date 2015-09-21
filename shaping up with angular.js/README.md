@@ -176,3 +176,19 @@ Expression define a 2-way data biding
 ### Feels dirty, doesn't it?
 
 **The best choice to put your app logic is in controller**
+***
+
+
+
+## 3.1 Forms and Models
+
+### Introducing ng-model
+
+`ng-model`: bind the form element value to a property
+
+### Two more binding examples
+
+- checkbox
+  - set value to true or false
+- radio buttons
+  - set value based on which is selected
