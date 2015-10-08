@@ -179,7 +179,6 @@ Expression define a 2-way data biding
 ***
 
 
-
 ## 3.1 Forms and Models
 
 ### Introducing ng-model
@@ -192,3 +191,12 @@ Expression define a 2-way data biding
   - set value to true or false
 - radio buttons
   - set value based on which is selected
+***
+
+
+## 3.5 Accepting Submissions
+
+- We could do ng-init, but we're better of creating a controller
+- Shortcut to `SomeController` is `someCtrl`
+
+`ng-submit` allows us to call a function when the form is submitted. e.g. `ng-submit="reviewCtrl.addReview(product)"`
