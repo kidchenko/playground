@@ -58,9 +58,9 @@
           </ul>
             <form name="reviewForm">
               <blockquote>
-                <strong> Stars</strong>
-
-                <cite class="clearfix">—</cite>
+                <strong>{{review.stars}} Stars</strong>
+                {{review.body}}
+                <cite class="clearfix">- {{review.author}}</cite>
               </blockquote>
 
               <h4>Submit a Review</h4>
