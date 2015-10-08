@@ -6,11 +6,8 @@ a {
   color: #ac005f;
 }
 
- {
-  background: #ac005f;
-}
-
 .nav-pills > li.active > a, .nav-pills > li.active > a:active,
-.nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus {
+.nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus,
+.btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
   background: #ac005f;
 }
