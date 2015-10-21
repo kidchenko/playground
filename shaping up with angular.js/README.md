@@ -200,3 +200,34 @@ Expression define a 2-way data biding
 - Shortcut to `SomeController` is `someCtrl`
 
 `ng-submit` allows us to call a function when the form is submitted. e.g. `ng-submit="reviewCtrl.addReview(product)"`
+***
+
+
+## 3.8 Form Validations 101
+
+- Angular has great client side validations
+- Turn off default html validation `<form name="reviewForm" novalidate><form>`
+- `$valid` comes with angular and return `true` or `false` if form is valid
+
+```html
+<div>
+  reviewForm is {{reviewForm.$valid}}
+</div>
+```
+
+### Preventing the submit
+
+```html
+<form name="reviewForm" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)"></form>
+```
+
+- `ng-submit="reviewForm.$valid && ..."` if valid is false, then addReview is never called
+
+### The input classes
+
+Angular add classes to input
+
+- `ng-valid` to valid fields
+- `ng-invalid` to invalid fields
+- `ng-pristine` to intact form
+- `ng-dirty` to altered form (even if you delete the value)
