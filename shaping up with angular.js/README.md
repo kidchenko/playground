@@ -142,7 +142,6 @@ Repeat a section for each item an Array
 ***
 
 
-
 ## 2.6 Tabs Inside Out
 
 ### Introducing a new directive
@@ -231,3 +230,22 @@ Angular add classes to input
 - `ng-invalid` to invalid fields
 - `ng-pristine` to intact form
 - `ng-dirty` to altered form (even if you delete the value)
+***
+
+
+## 4.1 Directives
+
+### Using `ng-include` for templates
+
+`ng-include`, fetch, compiles and includes an external HTML fragment.
+
+### Why write a directive?
+
+Directives allow you to write  HTML that expresses the behavior of your application. Expresses is the real power off directives.
+
+**dash** in HTML translate to ...**camelCase** in JavaScript
+
+*notice, prefer not using  self-closing tag...`<product-title />`...some browsers don't like self-closing tags*
+
+- Use elements directives for UI widgets and attribute directives for mixin behaviors... like a tooltip
+- When you're writing the behavior and intent from just the HTML
