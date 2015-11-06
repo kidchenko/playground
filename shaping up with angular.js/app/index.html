@@ -38,9 +38,7 @@
             <a href ng-click="tab.setTab(3)">Reviews</a></li>
         </ul>
         <product-description ng-show="tab.isSet(1)"></product-description>
-        <div ng-show="tab.isSet(2)">
-          <h4>Specs</h4>
-          <blockquote>Shine: {{product.shine}}</blockquote>
+        <div ng-show="tab.isSet(2)" product-specs>
         </div>
         <div ng-show="tab.isSet(3)">
           <h4>Reviews</h4>
