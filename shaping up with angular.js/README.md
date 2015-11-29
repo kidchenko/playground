@@ -249,3 +249,16 @@ Directives allow you to write  HTML that expresses the behavior of your applicat
 
 - Use elements directives for UI widgets and attribute directives for mixin behaviors... like a tooltip
 - When you're writing the behavior and intent from just the HTML
+***
+
+
+## 5.1 Dependencies
+
+### How should I organize my application Modules?
+
+**Best to split Modules around functionality**
+
+```
+app.js - top level module, attached via ng-app
+|- products.js - all the functionality for products and only products
+```
