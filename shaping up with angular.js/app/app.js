@@ -18,15 +18,7 @@
   });
 
   app.controller('TabController', function () {
-    this.tab = 1;
 
-    this.setTab = function (tab) {
-      this.tab = tab;
-    };
-
-    this.isSet = function (tab) {
-      return this.tab == tab;
-    };
 
   });
 
@@ -51,6 +43,25 @@
     return {
       restrict: 'A',
       templateUrl: "product-specs.html"
+    };
+  });
+
+  app.directive('productTabs', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'product-tabs.html',
+      controller: function() {
+        this.tab = 1;
+
+        this.setTab = function (tab) {
+          this.tab = tab;
+        };
+
+        this.isSet = function (tab) {
+          return this.tab == tab;
+        };
+      },
+      controllerAs: 'tab'
     };
   });
 
