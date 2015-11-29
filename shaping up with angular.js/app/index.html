@@ -17,16 +17,7 @@
         {{product.name}}
         <em class="pull-right">{{product.price | currency}}</em>
       </h3>
-      <section ng-controller="GalleryController as gallery" ng-show="{{product.images.length}}">
-          <img class="img img-circle img-thumbnail center-block" ng-src="{{product.images[gallery.current]}}" alt="" />
-          <div class="caption">
-            <ul class="clearfix">
-              <li class="small pull-left thumbnail" ng-repeat="image in product.images">
-                <a href="#"><img ng-src="{{image}}" alt="" /></a>
-              </li>
-            </ul>
-          </div>
-      </section>
+      <product-gallery></product-gallery>
       <product-tabs></product-tabs>
     </div>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>

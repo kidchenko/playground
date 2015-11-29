@@ -1,0 +1,10 @@
+<section ng-show="{{product.images.length}}">
+    <img class="img img-circle img-thumbnail center-block" ng-src="{{product.images[gallery.current]}}" alt="" />
+    <div class="caption">
+      <ul class="clearfix">
+        <li class="small pull-left thumbnail" ng-repeat="image in product.images">
+          <a href="#"><img ng-src="{{image}}" alt="" /></a>
+        </li>
+      </ul>
+    </div>
+</section>
