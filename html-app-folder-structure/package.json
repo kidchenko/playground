@@ -1,0 +1,11 @@
+{
+  "name": "html-app-folder-sctructure",
+  "version": "1.0.0",
+  "description": "A html5 app folder structure",
+  "main": "\"\"",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kidchenko <kidchenko@gmail.com>",
+  "license": "MIT"
+}
