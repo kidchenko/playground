@@ -1,15 +1,37 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-
-var Hi = React.createClass({
-    render : function() {
+var ShowList = React.createClass({
+    render: function() {
+        var listItems = this.props.friends.map(function(friend) {
+            return <li> {friend} </li>
+        });
         return (
-            <div>Hi {this.props.name}.</div>
+            <div>
+                <h3>Friends</h3>
+                <ul>
+                    {listItems}
+                </ul>
+            </div>
         );
     }
 });
+
+var FriendsContainer = React.createClass({
+    render : function() {
+        var name = 'kidchenko';
+        var friendList = ['Aspira', 'Weslin', 'Clecin']
+        return (
+            <div>
+                Hi {name}.
+                <ShowList friends={friendList} />
+            </div>
+        );
+    }
+});
+
+
 ReactDOM.render(
-    <Hi name="kidchenko"/>, 
+    <FriendsContainer />,
     document.getElementById('app')
 );
