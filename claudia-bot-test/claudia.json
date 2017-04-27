@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "claudia-bot-test-executor",
+    "name": "claudia-bot-test",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "1t6gon5rz6",
+    "module": "bot"
+  }
+}
