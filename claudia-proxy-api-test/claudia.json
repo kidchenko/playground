@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "claudia-proxy-api-test-executor",
+    "name": "claudia-proxy-api-test",
+    "region": "us-east-1"
+  },
+  "api": {
+    "id": "1ve3ghue7d"
+  }
+}
