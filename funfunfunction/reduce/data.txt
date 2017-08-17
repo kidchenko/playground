@@ -1,0 +1,6 @@
+mark jhonson|waffle iron|80|2
+mark jhonson|blender|200|1
+mark jhonson|knife|10|4
+Nikita smith|waffle iron|80|1
+Nikita smith|knife|10|2
+Nikita smith|pot|20|3
