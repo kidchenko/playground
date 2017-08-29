@@ -5,7 +5,7 @@
       "shine": 8,
       "price": 110.50,
       "rarity": 7,
-      "color": "#CCC",
+      "color": "#F9C714",
       "faces": 14,
       "images": [
         "img/gem-02.gif",
@@ -20,7 +20,7 @@
       "shine": 9,
       "price": 22.90,
       "rarity": 6,
-      "color": "#EEE",
+      "color": "#F05A28",
       "faces": 12,
       "images": [
         "img/gem-01.gif",
@@ -35,7 +35,7 @@
       "shine": 70,
       "price": 1100,
       "rarity": 2,
-      "color": "#000",
+      "color": "#EC297B",
       "faces": 6,
       "images": [
         "img/gem-06.gif",
