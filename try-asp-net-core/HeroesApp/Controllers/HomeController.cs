@@ -12,9 +12,14 @@ namespace HeroesApp.Controllers
     {
         public IActionResult Index()
         {
+            return View(nameof(HomeController.Index), new Equipment());
+        }
+
+        public IActionResult Create(string equipmentName)
+        {
             var equipment = new Equipment();
-            equipment.Name = "Shield";
-            return View(nameof(HomeController.Index), equipment);
+            equipment.Name = equipmentName;
+            return View("Index", equipment);
         }
 
         public IActionResult Error()

@@ -1,6 +1,13 @@
 ﻿@model HeroesApp.Models.Equipment
-<h2>Equipment</h2>
+<h2>Equipment:</h2>
+<form asp-action="Create" class="form-inline">
+    <div class="form-group">
+        <input type="text" name="equipmentName" class="form-control" />
+        <input type="submit" value="Add Equipment" class="form-control btn-info" />
+    </div>
+</form>
 
+<h4>Equipment:</h4>
 <div>
   <ul>
     <li>@Model.Name</li>
