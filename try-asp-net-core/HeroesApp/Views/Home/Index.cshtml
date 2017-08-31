@@ -1,4 +1,4 @@
-﻿@model HeroesApp.Models.Equipment
+﻿@model IList<Equipment>
 <h2>Equipment:</h2>
 <form asp-action="Create" class="form-inline">
     <div class="form-group">
@@ -10,6 +10,9 @@
 <h4>Equipment:</h4>
 <div>
   <ul>
-    <li>@Model.Name</li>
+      @foreach(var item in Model)
+      {
+        <li><label>@item.Name</label></li>      
+      }
   </ul>
 </div>
