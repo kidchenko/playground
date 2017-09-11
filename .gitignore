@@ -186,3 +186,4 @@ FakesAssemblies/
 
 **/*.vscode
 **/*project.lock.json
+**/.next
