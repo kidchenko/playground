@@ -1,0 +1,12 @@
+{
+  "name": "javascript-redux-writing-a-counter-reducer-with-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "ava"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
+}
