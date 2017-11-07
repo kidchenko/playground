@@ -17,3 +17,7 @@ If ($Status -eq "Running") {
     Clear-Host
     Write-Output "Service is already stopped"
 }
+
+#Better
+$y = if ($false) { "1" } else { "2" }
+$y

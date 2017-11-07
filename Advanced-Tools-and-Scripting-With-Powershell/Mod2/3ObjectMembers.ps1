@@ -10,7 +10,7 @@ $msg
 $Services=Get-Service
 $services[0]
 $services[0].Status
-$Services[-1].Name
+$Services[-1].Name # Get the last service
 "Service Name is $($services[4].DisplayName)"
 "Service Name is $($services[4].name.ToUpper())"
 
