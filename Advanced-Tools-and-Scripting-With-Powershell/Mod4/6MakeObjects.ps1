@@ -19,17 +19,18 @@
     }
     Process{
         foreach($Computer in $ComputerName){
-            $os=Get-Wmiobject -ComputerName $Computer -Class Win32_OperatingSystem
-            $Disk=Get-WmiObject -ComputerName $Computer -class Win32_LogicalDisk -filter "DeviceID='c:'"
+            $os = Get-Wmiobject -ComputerName $Computer -Class Win32_OperatingSystem
+            $disk = Get-WmiObject -ComputerName $Computer -class Win32_LogicalDisk -filter "DeviceID='c:'"
             
             $Prop=@{ #With or without [ordered]
                 'ComputerName'=$computer;
                 'OS Name'=$os.caption;
                 'OS Build'=$os.buildnumber;
-                'FreeSpace'=$Disk.freespace / 1gb -as [int]
+                'FreeSpace'=$disk.freespace / 1gb -as [int]
             }
-        $Obj=New-Object -TypeName PSObject -Property $Prop 
-        Write-Output $Obj
+        
+            $Obj = New-Object -TypeName PSObject -Property $Prop 
+            Write-Output $Obj
 
         } 
     }

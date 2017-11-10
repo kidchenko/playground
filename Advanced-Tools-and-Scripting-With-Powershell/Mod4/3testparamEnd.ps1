@@ -8,8 +8,9 @@ Function Get-CompInfo{
         [Switch]$ErrorLog,
         [String]$LogFile = 'c:\errorlog.txt'
     )
-    Begin{
+    Begin {
         If($errorLog){
+                # Write verbose just write if you pass -Verbose as param
                 Write-Verbose 'Error logging turned on'
             } Else {
                 Write-Verbose 'Error logging turned off'
@@ -18,8 +19,11 @@ Function Get-CompInfo{
                 Write-Verbose "Computer: $Computer"
             }    
     }
-    Process{}
-    End{}
+    Process {
+        
+    }
+    End {
 
+    }
 }
 

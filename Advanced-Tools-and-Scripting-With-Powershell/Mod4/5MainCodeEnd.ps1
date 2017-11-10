@@ -19,18 +19,31 @@
     }
     Process{
         foreach($Computer in $ComputerName){
-            $os=Get-Wmiobject -ComputerName $Computer -Class Win32_OperatingSystem
-            $Disk=Get-WmiObject -ComputerName $Computer -class Win32_LogicalDisk -filter "DeviceID='c:'"
+            $os = Get-Wmiobject -ComputerName $Computer -Class Win32_OperatingSystem
+            $disk = Get-WmiObject -ComputerName $Computer -class Win32_LogicalDisk -filter "DeviceID='c:'"
             
-            $Prop=@{
-                'ComputerName'=$computer;
-                'OS Name'=$os.caption;
-                'OS Build'=$os.buildnumber;
-                'FreeSpace'=$Disk.freespace / 1gb -as [int]
+            # When you print this hastable give attention that the propety are not in order
+            # Hash table dont garant order
+            $Prop = @{
+                'ComputerName' = $computer
+                'OS Name' = $os.caption
+                'OS Build' = $os.buildnumber
+                'FreeSpace' = "$($disk.freespace / 1gb -as [int]) GB"
             }
-        #This doesn't produce objects yet - just for testing
-        Write-Output $Prop
 
+            $PropOrder = [ordered] @{
+                'ComputerName' = $computer
+                'OS Name' = $os.caption
+                'OS Build' = $os.buildnumber
+                'FreeSpace' = "$($disk.freespace / 1gb -as [int]) GB"
+            }
+        
+            #This doesn't produce objects yet - just for testing
+            Write-Output $Prop
+            
+            Write-Output "Now ordered"
+
+            Write-Output $PropOrder
         } 
     }
     End{}
