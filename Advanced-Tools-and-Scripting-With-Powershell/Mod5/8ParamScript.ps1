@@ -1,13 +1,17 @@
-﻿Function Get-CompInfo {
+Function Get-CompInfo {
   [CmdletBinding()]
   Param(
     #Want to support multiple computers
     [Parameter(Mandatory = $True,
       ValueFromPipeline = $true,
       ValueFromPipelineByPropertyName = $true)]
-    [ValidateCount(0, 2)]
+    
+    # Run script in param validation
+    [ValidateScript( { $false } )]
     [String[]]$ComputerName,
-        
+
+    [ValidatePattern("\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b")]
+    [String]$IPAddress,
 
 
 
