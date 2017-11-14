@@ -20,13 +20,13 @@ Get-Content c:\servers.txt | Get-CompInfo
 Function Get-CompInfo{
     [CmdletBinding()]
     Param(
-        #Want to support multiple computers
+        #Want to support multiple computers #This comment will appear in Help
         [Parameter(Mandatory=$True,
                     ValueFromPipeline=$true,
                     ValueFromPipelineByPropertyName=$true)]
         [String[]]$ComputerName,
         
-        #Switch to turn on Error logging
+        #Switch to turn on Error logging #This comment will appear in Help
         [Switch]$ErrorLog,
         [String]$LogFile = 'c:\errorlog.txt'
     )
