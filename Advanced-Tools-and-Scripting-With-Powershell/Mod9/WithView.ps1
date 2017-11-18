@@ -42,9 +42,9 @@ Function Get-CompInfo{
                 'OS Build'=$os.buildnumber;
                 'FreeSpace'=$Disk.freespace / 1gb -as [int]
             }
-        $Obj=New-Object -TypeName PSObject -Property $Prop
-        $obj.PSObject.TypeNames.Insert(0,'Jason.InventoryObject') 
-        Write-Output $Obj
+        $obj=New-Object -TypeName PSObject -Property $Prop
+        $obj.PSTypeNames.Insert(0,'Jason.InventoryObject') 
+        Write-Output $obj
 
         } 
     }
