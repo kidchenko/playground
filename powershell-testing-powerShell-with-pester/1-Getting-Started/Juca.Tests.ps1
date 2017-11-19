@@ -6,4 +6,8 @@ Describe "Juca" {
   It "does something useful" {
     $true | Should -Not -Be $false
   }
+
+  It "Should be true" {
+    $true | Should -Be $true
+  }
 }
