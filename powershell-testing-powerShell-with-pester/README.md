@@ -1,6 +1,6 @@
 # PowerShell Testing with Pester
 
-## Module 1
+## Module 1 - Getting Started
 
 Pester uses TestDrive
 
@@ -15,3 +15,9 @@ The BeforeAll, AfterAll statmemt works using try, catch, finally, block. The Bef
 In gereral you have a function called Test-Foo and a `Describe "Test-Foo"` and each it test a different behaviour of the function
 
 You can use `psedit` to open a PowerShell file
+
+## Module 2 - Mocking
+
+What is the difference between Mock vs Stub?
+
+
