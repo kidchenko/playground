@@ -14,7 +14,7 @@ function Test-Foo {
 #     if (Select-String -Path $FilePath -Pattern "foo") {
 #         $true
 #     }
-}
+# }
 
 # final step, make all tests pass
 # function Test-Foo {
@@ -51,6 +51,5 @@ Describe "Test-Foo" {
     It 'When the file dones not have "foo", it should return $false' {
 
         $noFooOutput | Should -Be $false
-        
     }
 }
