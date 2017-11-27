@@ -1,13 +1,13 @@
 $artifactsFolder = 'C:\Dropbox\GitRepos\MicrosoftVirtualAcademy\Testing PowerShell With Pester\Demos\Project 1 - PowerShell Project\Artifacts'
 $employeesCsvPath = "$artifactsFolder\Employees.csv"
 
-describe 'CSV file' {
+Describe 'CSV file' {
 
-	it 'the CSV file exists in the expected location' {
+	It 'the CSV file exists in the expected location' {
 		Test-Path -Path $employeesCsvPath | should be $true
 	}
 
-	it 'the CSV file contains all the expected rows' {
+	It 'the CSV file contains all the expected rows' {
 		$csvContent = '"FirstName","LastName","Department","Title"
 "Katie","Green","Accounting","Manager of Accounting"
 "Joe","Blow", "Information Systems","System Administrator"
@@ -19,11 +19,11 @@ describe 'CSV file' {
 	}
 }
 
-describe 'Active Directory' {
+Describe 'Active Directory' {
 
 	$csvEmployees = Import-Csv -Path $employeesCsvPath
 
-	it 'the expected OUs exist' {
+	It 'the expected OUs exist' {
 
 		$expectedOus = $csvEmployees | foreach { "OU=$($_.Department),DC=mylab,DC=local" } | Select -Unique
 		
@@ -32,7 +32,7 @@ describe 'Active Directory' {
 
 	}
 
-	it 'the expected groups exist' {
+	It 'the expected groups exist' {
 
 		$expectedGroups = $csvEmployees | foreach { $_.Department } | Select -Unique
 		
@@ -41,7 +41,7 @@ describe 'Active Directory' {
 
 	}
 
-	it 'users in the CSV file do not exist in AD' {
+	It 'users in the CSV file do not exist in AD' {
 		
 		foreach ($user in (Import-Csv -Path $employeesCsvPath)) {
 			

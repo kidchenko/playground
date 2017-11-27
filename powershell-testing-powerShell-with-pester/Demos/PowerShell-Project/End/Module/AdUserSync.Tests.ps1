@@ -7,10 +7,10 @@ Get-Module -Name AdUserSync -All | Remove-Module -Force
 Import-Module "$PSScriptRoot\AdUserSync.psm1" -Force
 
 InModuleScope 'AdUserSync' {
-    describe 'Get-AdUserDefaultPassword' {
+    Describe 'Get-AdUserDefaultPassword' {
 
         ## Must mock this to control what gets passed to ConvertTo-SecureString and we're asserting this command was called.
-        mock 'Import-CliXml' {
+        Mock 'Import-CliXml' {
             $testCred = New-MockObject -Type 'System.Management.Automation.PSCredential'
 
             ## No built-in way to mock a .NET method. We must use PowerShell extended type system to replace it instead.
@@ -24,7 +24,7 @@ InModuleScope 'AdUserSync' {
             $testCred
         }
 
-        it 'builds the default FilePath parameter correctly and passes it to Import-CliXml' {
+        It 'builds the default FilePath parameter correctly and passes it to Import-CliXml' {
 
             #############
             ## HIGHLIGHT
@@ -44,7 +44,7 @@ InModuleScope 'AdUserSync' {
             Assert-MockCalled @assMParams
         }
 
-        it 'returns a single secure string' {
+        It 'returns a single secure string' {
             
             $result = Get-AdUserDefaultPassword
 
@@ -62,12 +62,12 @@ InModuleScope 'AdUserSync' {
         #############
         ## HIGHLIGHT
         #############
-        it 'converts the expected password to a secure string' {
+        It 'converts the expected password to a secure string' {
 
             ## This It block is last on purpose because I'm creating a mock that I don't want applied to the It
             ## blocks above.     
 
-            mock 'ConvertTo-SecureString'
+            Mock 'ConvertTo-SecureString'
 
             $null = Get-AdUserDefaultPassword
 
@@ -83,13 +83,13 @@ InModuleScope 'AdUserSync' {
         }
     }
 
-    describe 'Get-ActiveEmployee' {
+    Describe 'Get-ActiveEmployee' {
 
         #############
         ## HIGHLIGHT
         #############
         ## "Fake"" CSV data just to test with based on the real data
-        mock 'Import-Csv' {
+        Mock 'Import-Csv' {
             ConvertFrom-Csv -InputObject @'
     "FirstName","LastName","Department","Title"
     "Katie","Green","Accounting","Manager of Accounting"
@@ -100,11 +100,11 @@ InModuleScope 'AdUserSync' {
 '@
         }
 
-        mock 'Test-Path' {
+        Mock 'Test-Path' {
             $true
         }
 
-        it 'returns the expected number of objects' {
+        It 'returns the expected number of objects' {
 
             $result = Get-ActiveEmployee
             $result.Count | should be 5
@@ -114,7 +114,7 @@ InModuleScope 'AdUserSync' {
         #############
         ## HIGHLIGHT
         #############
-        it 'returns objects that have an ADuserName property appended' {
+        It 'returns objects that have an ADuserName property appended' {
             
             ## I've chosen not to mock the function (Get-EmployeeUserName) creates the ADUserName property. I do this because
             ## I trust this function because I also have tests for it.
@@ -124,7 +124,7 @@ InModuleScope 'AdUserSync' {
 
         }
 
-        it 'returns objects that have an OUPath property appended' {
+        It 'returns objects that have an OUPath property appended' {
             
             $result = Get-ActiveEmployee
             $result.OUPath | should not benullorempty
@@ -134,9 +134,9 @@ InModuleScope 'AdUserSync' {
         #############
         ## HIGHLIGHT
         #############
-        it 'throws an exception when the CSV file cannot be found' {
+        It 'throws an exception when the CSV file cannot be found' {
             
-            mock 'Test-Path' {
+            Mock 'Test-Path' {
                 $false
             }
 
@@ -144,11 +144,11 @@ InModuleScope 'AdUserSync' {
         }
 
 
-        it 'builds the default FilePath parameter correctly and passes it to Import-Csv' {
+        It 'builds the default FilePath parameter correctly and passes it to Import-Csv' {
 
-            mock 'Import-Csv'
+            Mock 'Import-Csv'
 
-            mock 'Test-Path' {
+            Mock 'Test-Path' {
                 $true
             }
 
@@ -168,12 +168,12 @@ InModuleScope 'AdUserSync' {
         }
     }
 
-    describe 'Get-InactiveEmployee' {
+    Describe 'Get-InactiveEmployee' {
 
         #############
         ## HIGHLIGHT
         #############
-        mock 'Get-ActiveEmployee' {
+        Mock 'Get-ActiveEmployee' {
             ## Must create something with ADUserName since we're referencing that property in the function.
             [pscustomobject]@{
                 ADUserName = 'user1'
@@ -186,10 +186,10 @@ InModuleScope 'AdUserSync' {
             }
         }
 
-        it 'should only query for AD users that are enabled' {
+        It 'should only query for AD users that are enabled' {
 
             ## This will only create the mock if the parameter filter is $true
-            mock 'Get-AdUser' {
+            Mock 'Get-AdUser' {
 
             } -ParameterFilter { $Filter -like "*Enabled -eq 'True'*" }
 
@@ -204,10 +204,10 @@ InModuleScope 'AdUserSync' {
             Assert-MockCalled @assMParams
         }
 
-        it 'should exclude the domain administrator account from the AD user query' {
+        It 'should exclude the domain administrator account from the AD user query' {
 
             ## This will only create the mock if the parameter filter is $true
-            mock 'Get-AdUser' {
+            Mock 'Get-AdUser' {
 
             } -ParameterFilter { $Filter -like "*SamAccountName -ne 'Administrator'*" }
 
@@ -222,10 +222,10 @@ InModuleScope 'AdUserSync' {
             Assert-MockCalled @assMParams
         }
 
-        it 'should only return AD users that are not in the CSV file' {
+        It 'should only return AD users that are not in the CSV file' {
 
             ## Purposefully add users that are AND aren't active to test the filter
-            mock 'Get-AdUser' {
+            Mock 'Get-AdUser' {
                 [pscustomobject]@{
                     samAccountName = 'user1'
                 }
@@ -247,62 +247,62 @@ InModuleScope 'AdUserSync' {
         }   
     }
 
-    describe 'Get-EmployeeUsername' {
+    Describe 'Get-EmployeeUsername' {
 
         $result = Get-EmployeeUsername -FirstName 'Bob' -LastName 'Jones'
 
-        it 'should return a single string' {
+        It 'should return a single string' {
             @($result).Count | should be 1
             $result | should beofType 'string'
         }
         
         ## This test is technically not required since we're inherently testing this in the assertion below. However,
         ## I choose to do this to make the tests more explicit and easier to pinpoint problems.
-        it 'should return the first initial of the first name as the first character' {
+        It 'should return the first initial of the first name as the first character' {
             $result.SubString(0,1) | should be 'B'
         }
 
-        it 'should return the expected username' {
+        It 'should return the expected username' {
             $result | should be 'BJones'
         }
     }
 
-    describe 'Get-DepartmentOUPath' {
+    Describe 'Get-DepartmentOUPath' {
         $result = Get-DepartmentOUPath -OUPath 'departmentHere'
 
-        it 'returns a single string' {
+        It 'returns a single string' {
                 @($result).Count | should be 1
                 $result | should beofType 'string'
         } 
 
-        it 'returns the expected OU path' {
+        It 'returns the expected OU path' {
                 $result | should be 'OU=departmentHere,DC=mylab,DC=local'
         }
     }
 
-    describe 'Test-AdUserExists' {
+    Describe 'Test-AdUserExists' {
         
-        it 'returns $true if the user account can be found in AD' {
-            mock 'Get-AdUser' {
+        It 'returns $true if the user account can be found in AD' {
+            Mock 'Get-AdUser' {
                 $true
             }
             $result = Test-AdUserExists -UserName 'bjones'
             $result | should be $true
         }
 
-        it 'returns $false if the user account cannot be found in AD' {
-            mock 'Get-AdUser'
+        It 'returns $false if the user account cannot be found in AD' {
+            Mock 'Get-AdUser'
 
             $result = Test-AdUserExists -UserName 'bjones'
             $result | should be $false
         }
     }
 
-    describe 'Test-AdGroupExists' {
+    Describe 'Test-AdGroupExists' {
 
 
-        it 'returns $true if the group can be found in AD' {
-            mock 'Get-AdGroup' {
+        It 'returns $true if the group can be found in AD' {
+            Mock 'Get-AdGroup' {
                 $true
             }
             $result = Test-AdGroupExists -Name 'whatever'
@@ -310,18 +310,18 @@ InModuleScope 'AdUserSync' {
             $result | should be $true
         }
 
-        it 'returns $false if the group cannot be found in AD' {
-            mock 'Get-AdGroup'
+        It 'returns $false if the group cannot be found in AD' {
+            Mock 'Get-AdGroup'
 
             $result = Test-AdGroupExists -Name 'whatever'
             $result | should be $false
         }
     }
 
-    describe 'Test-AdGroupMemberExists' {
+    Describe 'Test-AdGroupMemberExists' {
 
-        it 'returns $true if the username is a member of the group' {
-            mock 'Get-AdGroupMember' {
+        It 'returns $true if the username is a member of the group' {
+            Mock 'Get-AdGroupMember' {
                 @{
                     Name = 'bjones'
                 }
@@ -332,8 +332,8 @@ InModuleScope 'AdUserSync' {
             $result | should be $true
         }
 
-        it 'returns $false if the username is not a member of the group' {
-            mock 'Get-AdGroupMember' {
+        It 'returns $false if the username is not a member of the group' {
+            Mock 'Get-AdGroupMember' {
                 @{
                     Name = 'someotherusernamehere'
                 }
@@ -345,10 +345,10 @@ InModuleScope 'AdUserSync' {
         }
     }
 
-    describe 'Test-ADOrganizationalUnitExists' {
+    Describe 'Test-ADOrganizationalUnitExists' {
         
-        it 'creates the proper full OU DN and passes to Get-ADOrganizationalUnit' {
-            mock 'Get-ADOrganizationalUnit' {
+        It 'creates the proper full OU DN and passes to Get-ADOrganizationalUnit' {
+            Mock 'Get-ADOrganizationalUnit' {
                 $true
             }
 
@@ -364,14 +364,14 @@ InModuleScope 'AdUserSync' {
             Assert-MockCalled @assMParams
         }
 
-        it 'returns $true if the group can be found in AD' {
+        It 'returns $true if the group can be found in AD' {
 
             $result = Test-ADOrganizationalUnitExists -DistinguishedName 'OU=departmentHere,DC=mylab,DC=local'
             $result | should be $true
         }
 
-        it 'returns $false if the group cannot be found in AD' {
-            mock 'Get-ADOrganizationalUnit'
+        It 'returns $false if the group cannot be found in AD' {
+            Mock 'Get-ADOrganizationalUnit'
 
             $result = Test-ADOrganizationalUnitExists -DistinguishedName 'OU=departmentHere,DC=mylab,DC=local'
             
@@ -379,7 +379,7 @@ InModuleScope 'AdUserSync' {
         }
     }
 
-    describe 'New-CompanyAdUser' {
+    Describe 'New-CompanyAdUser' {
 
         #############
         ## HIGHLIGHT
@@ -395,11 +395,11 @@ InModuleScope 'AdUserSync' {
         #############
         ## HIGHLIGHT
         #############
-        mock 'Get-ADUserDefaultPassword' -Verifiable {
+        Mock 'Get-ADUserDefaultPassword' -Verifiable {
             $securePass
         }
 
-        mock 'New-Aduser' -Verifiable {
+        Mock 'New-Aduser' -Verifiable {
 
         } -ParameterFilter {
             $UserPrincipalName -eq 'fLastNameHere' -and
@@ -427,7 +427,7 @@ InModuleScope 'AdUserSync' {
         }
         $result = New-CompanyAdUser @params
 
-        it 'should attempt to create an AD user with the proper parameters' {
+        It 'should attempt to create an AD user with the proper parameters' {
 
             Assert-VerifiableMocks
         }

@@ -17,7 +17,7 @@ This script:
 ## Gather up all of the necessary prereq information
 	$domainDn = (Get-ADDomain -Server DC).DistinguishedName
 
-	$artifactsFolder = "$PSScriptRoot\Artifacts"
+	$artifactsFolder = "$PSScriptRoot\..\Artifacts"
 
 	## The default password for account was saved on the file system previously
 	$defaultPasswordXmlFile = "$artifactsFolder\DefaultUserPassword.xml"
