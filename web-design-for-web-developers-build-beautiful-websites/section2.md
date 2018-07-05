@@ -127,3 +127,112 @@ When you are in doubt about using colors and don't know where to use colors and 
  - purple: knowability and wealth, wisdom, royalty, nobility and luxury and mistery
  - pink: romance, passivity, care, peace, affection
  - brown: relaxation and confidence, earthness, nature, durability, comfort, and reliability.
+
+ ## Working With Images
+
+In fact using large background images can make your website look more attractive and create more user engagement. Putting text over image
+
+1. Put text directly on the image
+
+![](images/text-on-image.png)
+
+The easiest way is to put text diretly on an image, the problem is that it only works if the image is quite dark and the text is white. In this website we can see that we don't have enough contrast between the headline and the image, it make the text hard to read.
+
+2. Overlay the image
+
+It is a good solution for the previous problem. You can overlay the image with a color, the most usual and of course simple to use is black, making the image darker.
+
+![](images/text-on-image-overlay.png)
+
+But we also can use other colors.
+
+![](images/text-on-image-overlay-color.png)
+
+3. Put your text in a box
+
+![](images/text-on-image-text-in-box.png)
+
+The box should be opaque
+
+4. Blur the image
+
+![](images/text-on-image-blur.png)
+
+You can blur the whole image or just a part, just make sure the text still in the blur part of the image.
+
+5. The floor fade
+
+Floor fate is a techinique where an image studdenly fades towards black at the bottom
+
+![](images/text-on-image-floor-fade.png)
+
+## Using CSS to Work with Images
+
+### Overlay the image
+
+```css
+.darken {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(YOUR IMAGE HERE);
+}
+```
+
+Example: http://jsfiddle.net/drpak8vy/1/
+
+
+### Put text in a box
+
+```css
+.text-box {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: inline;
+    padding: 10px;
+}
+```
+
+Example: http://jsfiddle.net/qg83m36p/
+
+### Floor fade
+
+```css
+.floor-fade {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6) ), url(YOUR IMAGE HERE);
+}
+```
+
+Example: http://jsfiddle.net/gRzPF/409/
+
+## Icons
+
+Icons can be a very important task of the web design work, they have a lot of power. Some guidelines to use icons are:
+
+1. Use icons to list features/steps
+
+You can use icons to use features of your website or steps for the user archive some goal, icons help user to get an idea what is the website is about.
+
+![](images/icons-features-steps.png)
+
+![](images/icons-idea.png)
+
+2. Use icons for actions and links
+
+Popular websites like facebook and youtube use icons in the navigation links.
+
+![](images/icons-navigation.png)
+
+If you use icons for it, there are two rules:
+
+- Your icons should be instantaneously recognizable and remove open interpretation
+- Label your icon if you have enough space, becuase otherwise you can confuse your users.
+
+3. Icons should NOT take the big point of design, it should support the design
+
+In this example, you can see only three icons, that support the design listing the features of the product.
+
+![](images/icons-support-design.png)
+
+4. Use icon fonts whenever possible
+
+Use icon fonts, because vector scale up and down.
+
+![](images/icons-vector.png)
