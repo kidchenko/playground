@@ -236,3 +236,46 @@ In this example, you can see only three icons, that support the design listing t
 Use icon fonts, because vector scale up and down.
 
 ![](images/icons-vector.png)
+
+
+## Spacing and Layout
+
+Every piece of a good design uses whitespace well.
+If you want to make a web site that looks well designed, you need a lot of white space in the correct place.
+
+![](images/white-space.png)
+
+White space is the key to create an clean and simple look and feel. The above example uses white space very well.
+Look the space between the icons and text, space between and section, space between the section headings and its content and brtween paragraphs.
+
+This makes the website clean, all because uses whitespace very well.
+
+![](images/white-no-space.png)
+
+The above image ins the website without white space, it is a big diference! There is no breathe, everything looks clumsy (desajeitado) and unthoughtful.
+
+Guidelines
+
+1. Use whitespace
+    - Put whitespace between your elements.
+    - Put whitespace between your group of elements.
+    - Put whitespace between your website's sections.
+    - But don't exaggerate because when elements are spaced to much they lose the relationship with each other
+
+2. Whitespace define Hierarchy
+
+Whitespace describes invisible relantionships between the elements of your website.
+
+![](images/white-space-relantionships.png)
+
+Whitespace comunicate how the pieces related with each other. Whe can see in the site above where the each section start.
+
+Hierarchy gives order for your website.
+
+Defining a hierarchy
+
+- Define where your want your audience to look first.
+- Establish a flow that corresponds to your content't message.
+- Use what space to drive your user for your hierarchy of elements.
+
+Using a whitespace right can make your website modern and clean.
