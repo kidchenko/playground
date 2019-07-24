@@ -1,0 +1,27 @@
+# CLR Internals
+
+## Introduction
+
+.NET is a Virtual Runtime Environment (Common Language Runtime - CLR - Microsoft Implementation).
+
+A number of supported languages
+- C#/VB/C++(CLI)/IronPython/IronRuby
+
+When you compile your code you get an assemlby but doesn't contains machine code, contains intermadiate code. The CLR interpret this language and transform in Machine Code.
+
+CLR provide benefits such assemlby
+- Automatic memory management
+- Rich security subsystem
+- Code verification
+- More...
+
+## Overview
+
+.NET Apps <= .NET Framework <= Common Language Runtime (Microsoft Implementation) <= ECMA Common Language Infrastructure (Spec)
+
+Mono is another Implementation of CLI
+
+## Execution Process
+
+Source Code -> Compiler -> .NET Assembly -> CLR -> JIT -> App Finished
+
