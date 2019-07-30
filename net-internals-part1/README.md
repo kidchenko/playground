@@ -34,3 +34,29 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
     - Change `Hello, World!` to something else
 - Use ilasm to reassembly the modified il file
     - `ilasm /exe HelloWorld.il`
+
+### Inspecting Runtime State
+
+- Inspecting runtime state
+    - State of your program
+    - Underlying data structures of the runtime (CLR) - VS debugger is not good at that, native code debugers are
+
+- Visual Studio debugger
+    - Stepping through source, setting breakpoints
+    - Controlling exception behavior
+    - Expression evaluator (Watch, Immediate)
+
+- Native code debugger
+    - Debugging Tools for Windows download
+    - WinDbg.exe and cdb.exe (native debuggers don't understand CLR so well, but we add extra extensions and it works great)
+    - SOS, PSSCOR4, SOSEX, CLRMD debugger extensions - SoS means Son of Strike (Strike is the codename of the CLR debugger), PSSCOR4 is a great tool to debug ASP .NET
+
+- Using cdb.exe `C:\Program Files (x86)\Windows Kits\10\Debuggers`
+    - `cdb.exe HelloWorld.exe`
+    - `sxe ld clrjit; g`
+    - Now we want to load the the sos extension
+    - `.loadby sos clr`
+    - Let's set a breakpoint in Main
+    - `!bpmd HelloWorld.exe Program.Main`
+    - `g` to continue execution and hit the breakpoint
+    - `qd` to Quit and Detach
