@@ -60,3 +60,63 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
     - `!bpmd HelloWorld.exe Program.Main`
     - `g` to continue execution and hit the breakpoint
     - `qd` to Quit and Detach
+
+- Using WinDbg
+    - Open WinDbg
+    - Notify the debug when the clrjit is load
+    - `sxe ld clrjit`
+    - `g` to continue
+    - See in the message the last loaded assembly was `clrjit`
+    - Load sos extension
+    - `.loadby sos clr`
+    - `!help` to see the commands available
+    - `!procinfo` 2 times
+    - Let's set a breakpoint in Main
+    - `!bpmd HelloWorld.exe Program.Main`
+    - `g`
+    - `k` to show the call stack
+    - `!clrstack` maybe twice
+    - `qd` to exit
+
+### Summary
+
+- Understand internals
+    - Becomme a better engineer
+    - Engineering for performance
+    - Invaluable when debugging
+
+- C# has no secrets
+    - IL code inspection
+    - Debugger techniques
+
+- Familiarize yourself with tools
+    - ILDASM
+    - ILSpy
+    - WinDbg & SOS
+
+
+## The CLR and IL in a Nutshell
+
+### Introduction to IL
+
+- Intermediate Language (IL)
+    - Virtual machine language of the CLR
+        - Emitted by managed language compilers (C#, VB, F#)
+        - NGEN or JIT compile to native code
+    - Stack-based evaluation (this make a easy target for compilers)
+        - No registers
+        - Local, arguments, fields, etc
+    - Verification
+        - Type safe
+        - Memory safe
+    - Leverages metadata
+
+
+- Stack based evaluation
+    - Scratch-pad for computation
+    - Pop operands, execute operator, push result
+    - Each instruction has a net effect on the stack
+        - add = 2 x pop + 1 x push (2 pop instructions to get the values and 1 pusg instruction to send the result)
+    - Stack transitions for "1 + 2" (1 + 2 will compile to 3 instructions)
+        - `ldc.i4.1` => `ldc.i4.2` => `add`
+            - `ldc` = load constant
