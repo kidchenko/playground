@@ -6,11 +6,14 @@ class Program
     static void Main()
     {
         Console.WriteLine("Hello, world!");
+        var result = JucaIntAsync().Result;
     }
+
+
 
     static async void JucaVoidAsync()
     {
-        return;
+        var result = await JucaIntAsync();
     }
 
     static async Task JucaTaskAsync()

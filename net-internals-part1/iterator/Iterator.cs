@@ -11,6 +11,6 @@ class Program
     static IEnumerator<int> Juca(int x)
     {
         yield return 42;
-        yield return 10 / x;
+        yield return 10 / x ;
     }
 }

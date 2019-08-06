@@ -116,7 +116,7 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
     - Scratch-pad for computation
     - Pop operands, execute operator, push result
     - Each instruction has a net effect on the stack
-        - add = 2 x pop + 1 x push (2 pop instructions to get the values and 1 pusg instruction to send the result)
+        - add = 2 x pop + 1 x push (2 pop instructions to get the values and 1 push instruction to send the result)
     - Stack transitions for "1 + 2" (1 + 2 will compile to 3 instructions)
         - `ldc.i4.1` => `ldc.i4.2` => `add`
             - `ldc` = load constant
