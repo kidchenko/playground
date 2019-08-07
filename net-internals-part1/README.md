@@ -120,3 +120,47 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
     - Stack transitions for "1 + 2" (1 + 2 will compile to 3 instructions)
         - `ldc.i4.1` => `ldc.i4.2` => `add`
             - `ldc` = load constant
+
+## Essential Instructions
+
+- pop
+    - Pops the object on the top of the stack
+    - Ofter used to discard stuff to rebalance the stack
+- dup 
+    - Duplicate the object on top of the stack
+    - Oftern used to eliminate loads and stores to locals
+- nop
+    - No-operation, doesn't do anything 'useful'
+    - Used in non-optmized builds
+        - Allow break points can be set
+        - eg. emit nop for lines with curly braces
+
+
+### Loading Constants
+
+- Numerical
+    - ldc.i4 => load const integer 4 bytes (int)
+    - ldc.r8 => load float points 8 byes (doubles)
+    - Short hand instructions, eg. `ldc.i4.1` for int32 `1`, ldc.i4.m1 for int32 `-1`
+
+- Boolean
+    - Represented as 0 or 1
+
+- String
+    - ldstr for load string
+    - value points to a string table entry
+
+- Null
+    - ldnull
+    - Null reference, useful for initialization or cleanup of locations
+
+
+### Local Variables in IL
+
+- Locals
+    - Typed slots to hold objects
+    - JIT may put those in machine registers or on the stack
+    - Instruction to load and store
+        - eg. ldloc.0 pushes the Oth local onto the evaluation stack
+        - eg. stloc.1 pops from the evaluation stack and stores into the 1st local
+        - ex. ldc.i4.1 (push 1 to stack) => stloc.0 (pop the 0th element from the stack and add in local variable slot) => ldloc.0 (push the 0th element to stack) - obs. ldloc doesn't remove the value from the local when push to stack, result will be = 1 in stack and 1 in the local slot.
