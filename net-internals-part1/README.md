@@ -95,9 +95,9 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
     - WinDbg & SOS
 
 
-## The CLR and IL in a Nutshell
+# The CLR and IL in a Nutshell
 
-### Introduction to IL
+## Introduction to IL
 
 - Intermediate Language (IL)
     - Virtual machine language of the CLR
@@ -155,7 +155,7 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
     - Null reference, useful for initialization or cleanup of locations
 
 
-### Local Variables in IL
+## Local Variables in IL
 
 - Locals
     - Typed slots to hold objects
@@ -164,3 +164,5 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
         - eg. ldloc.0 pushes the Oth local onto the evaluation stack
         - eg. stloc.1 pops from the evaluation stack and stores into the 1st local
         - ex. ldc.i4.1 (push 1 to stack) => stloc.0 (pop the 0th element from the stack and add in local variable slot) => ldloc.0 (push the 0th element to stack) - obs. ldloc doesn't remove the value from the local when push to stack, result will be = 1 in stack and 1 in the local slot.
+
+## Local Variables in IL
