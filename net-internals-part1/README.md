@@ -165,4 +165,35 @@ Use `csc` to compile HelloWorld.cs. It will generate an HelloWorld.exe
         - eg. stloc.1 pops from the evaluation stack and stores into the 1st local
         - ex. ldc.i4.1 (push 1 to stack) => stloc.0 (pop the 0th element from the stack and add in local variable slot) => ldloc.0 (push the 0th element to stack) - obs. ldloc doesn't remove the value from the local when push to stack, result will be = 1 in stack and 1 in the local slot.
 
-## Local Variables in IL
+
+## Basic IL Instructions and Branching
+
+Quick Intro to IL Code
+
+- Arithmetic, relational, logical. conversions
+    - Arithmetic instructions
+        - neg, add, sub, mul, div, rem, shl, shr
+        - Overflow variants with .ovf suffix (cf. checked in C#)
+    - Relational Instructions
+        - clt, cle, cgt, cge, cew, cne 
+        - Push 0 or 1 on based on outcome comparsion
+    - Bitwise logical instructions
+        - and, or, xor
+    - Conversions
+        - conv.<type>, eg. to conv.i4 to 4 bytes to integer
+        - isinst for type check
+        - castclass for casa to a specified type
+
+
+## Branch Instructions
+
+- Unconditional branch
+    - br method-local branch using the specified offset
+- Conditional branch instructions
+    - brtrue, brfalse, - check top stack for true or false
+    - beq, bne, blt, bgt, bge - relational operators with branching
+- Variants
+    - .s suffix - shor branch if offset fits 1 byte
+    - .un - unsigned variants
+- Switch tables
+    - switch - jumps based on integer operand
