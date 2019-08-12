@@ -197,3 +197,46 @@ Quick Intro to IL Code
     - .un - unsigned variants
 - Switch tables
     - switch - jumps based on integer operand
+
+## Analyzing Branches in ILDASM
+
+- Go to `branch` folder
+- Compile it one time with the optimizations disabled
+    - `csc Branch.cs`
+        - with the optimizer disabled the code is slighly different, in the `if/else if/else`
+- Now compile with the opmitzations enable
+    - `csc /o+ Branch.cs`
+
+## Call Instructions and Call Stacks
+
+- Different call instructions
+    - `call` - regular direct call
+    - `callvirt` - call with virtual dispatch
+    - `calli` - indirect call through a pointer (interop)
+
+
+- Arguments
+    - push arguments to make a method call
+        - arguments passed left-to-right on the stack
+        - Instabce methods hold `this` in the 0th argument
+    - Call stack frames hold local and arguments
+    - Instruction to load an argument: `ldarg`
+
+- Return to caller using ret instruction
+    - Stack should only contain one object (or none if void) - `Exceptions` (error) are an exception because unwind the call stack
+
+- Quick Intro to IL Code
+
+csharp
+```
+double d = Math.Pow(3.14, 2.81);
+Console.WriteLine(d);
+```
+
+1. ldc.r8 3.14
+2. ldc.r8 2.81
+3. call ... System.Math::Pow(float64, float64)
+4. stloc.0
+5. ldloc.0
+6. call ... System.Console::WriteLine(float64)
+7. ret
