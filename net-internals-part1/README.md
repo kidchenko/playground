@@ -209,6 +209,9 @@ Quick Intro to IL Code
 
 ## Call Instructions and Call Stacks
 
+There are different instructions to call a method.
+Source code: `./call`
+
 - Different call instructions
     - `call` - regular direct call
     - `callvirt` - call with virtual dispatch
@@ -256,5 +259,104 @@ Go to `call` folder
         - [DllImport("QCall")]
             - Quick calls
                 - from the `mscorlib.dll` assembly
-                - to native he;per methods in `mscorwks.dll`
+                - to native helper methods in `mscorwks.dll` or `clr.dll`
                 - eg. System.GC::_Collect
+
+
+## Exceptions, Objects and Arrays
+
+- Throwing exceptions
+    - throw
+        - used for `throw ex;` in C#;
+        - reset the stack trace
+            - ExceptionDispatchInfo in .NET 4.5
+    - rethrow
+        - Used for `throw;` in C#
+- Handling exceptioms
+    - IL has metadata that describes a protected region, ie. `try`
+        - catch type-based exception handling
+        - finally - cleanup sucessful or exceptional exit
+    - The IL use control flow in and out of a protected region
+        - leave instruction to exit a protected region
+            - causes handlers to run
+        - endfinallt and endfault to exit handlers
+
+
+- Working with objects
+    - newobj creates a new object on the GC heap
+        - Causes memory allocation and can throw OutOfMemoryException
+        - Runs specidfied constructor on object with zeroed memory
+        - Returns reference to newly created object
+- IL instructions
+    - `ldfld and stfld`
+        - Load and stores from/to fields
+        - Parameterized by metadata token of the fields
+- Arrays (one-dimensional)
+    - newarr - creates a new array of the specified lenght
+    - `ldlen` - loads the array lenght
+    - `ldelem`and `stelem` - loads and store array elements using an index
+
+## The Role of JIT Compiltation
+
+- Compilation model
+    - Front-end
+        - Managed language compilers, such as c#, Visual Basic, F#
+        - Emit IL code
+    - Back-end
+        - Just in time(JIT) compilation to x86, x64 or ARM at `runtime` or
+        - Native Image Generation (NGEN) ahead of time, eg during setup
+
+
+- Compiler tradeoffs
+
+- Front-end
+    - Developer Productivity
+    - Global program knowledge
+    - Machine agnostic
+    - More time to optimize
+    - Sometime don't optimize code because JIT can do it better
+
+- Backend
+    - Efficient execution
+    - Local program knowledge (will optimize that methods, or that section)
+    - Machine knowledge
+    - Less time to optimize
+    - Last compilation mechanism
+
+### Inspecting JIT compilation
+
+- Using SoS to analyzed a method
+    - Method descriptor (`md`)
+        - Internal identifier of the method
+        - !name2ee <module><method>
+    - Display method info
+        - Class, method table, JIT status, etc.
+        - `!dumpmd <method desc>`
+    - Break on method
+        - Native instructions only appear after JIT
+        - `!bpmd` command
+            - `!bpmd -md <method desc>`
+            - `!bpmd <module> <method>`
+            - `!bpmd <source file>:<line>` if PDBs are available
+    - Show code
+        - `!dumpil <method desc>`
+        - `!U <method desc>`
+
+- Open WinDbg
+- `sxe ld clrjit`
+- `g`
+- `.loadby sos clr`
+- Set breakpoint
+    - `!bpmd Jit.exe Program.Demo` - if fails try again
+- Press `F5`
+- Copy the method descriptor - something like
+    - `Method Desc = 00007ff9ed0959d8` 
+- Take a look in the IL code
+    - `!dumpil 00007ff9ed0959d8`
+- Take a look in the disassembled assembly code
+    - `!U 00007ff9ed0959d8`
+- Find the address of the Method Add: Something like
+    - ```call    00007ff9`ed1a0088 (Program.Add(Int32, Int32)```
+    - Insepect the code
+    - ```u 00007ff9`ed1a0088```
+
