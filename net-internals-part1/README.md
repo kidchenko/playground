@@ -225,7 +225,7 @@ Quick Intro to IL Code
 - Return to caller using ret instruction
     - Stack should only contain one object (or none if void) - `Exceptions` (error) are an exception because unwind the call stack
 
-- Quick Intro to IL Code
+### Quick Intro to IL Code
 
 csharp
 ```
@@ -240,3 +240,21 @@ Console.WriteLine(d);
 5. ldloc.0
 6. call ... System.Console::WriteLine(float64)
 7. ret
+
+Go to `call` folder
+
+- Calls in C#
+    - static methods use `call`
+    - Instance methods use `callvirt`
+        - even for non-virtuals
+        - Perform null check for v-table (if instance is null throws `NullReferenceException`)
+    - Special calls
+        - Use native implementation provided by the CLR
+        - [MethodImpl(MethodImplOptions.InsternalCall)]
+            - Oftern used for reflection- related stuff
+            - eg. `Systen.Object::GetType` - doesn't have an IL body. but transfer the call to internals of CLR
+        - [DllImport("QCall")]
+            - Quick calls
+                - from the `mscorlib.dll` assembly
+                - to native he;per methods in `mscorwks.dll`
+                - eg. System.GC::_Collect

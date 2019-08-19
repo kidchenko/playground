@@ -9,7 +9,7 @@ A number of supported languages
 
 When you compile your code you get an assemlby but doesn't contains machine code, contains intermadiate code. The CLR interpret this language and transform in Machine Code.
 
-CLR provide benefits such assemlby
+CLR provide benefits
 - Automatic memory management
 - Rich security subsystem
 - Code verification
@@ -43,13 +43,13 @@ The CLR-related data, including the root structure itself, is typically containe
 - Includes metadata about the image
 - One of the atributes of the metadata is the StartAdress
 
-StartAdress in the native world tje StartAdress typically point to a main function, normally the C/C++ Runtime main, which eventually will call your main function. For .NET is a little different.
+StartAdress in the native world the StartAdress typically point to a main function, normally the C/C++ Runtime main, which eventually will call your main function. For .NET is a little different.
 
 StartAdress points to `mscoree.dll` (System32 folder - Microsoft .NET Runtime Execution Engine)
-- Minimal CLR shim to boostrap the Runtime
+- Minimal CLR shim to bootstrap  the Runtime
 - Initialize the right version of the CLR
 - Loads and initializes the CLR
-- The PE has metada that says wich version CLR the assembly is target
+- The PE has metadata  that says which  version CLR the assembly is target
 - Every .NET version has the CLR but all share the same `mscoree.dll` (it is a OS component)
 - On Windows 2000 (before .NET) contains a JMP instruction to _CORExeMain.
 - On Windows XP an higher, the Windows Loader was modified to know about the CLR, then the JMP instruction is no longer necessary
