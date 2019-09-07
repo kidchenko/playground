@@ -1,0 +1,22 @@
+version: '2'
+services:
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  
+  postgres:
+    image:  "postgres:9.4"
+    environment:
+     POSTGRES_PASSWORD: 123456
+     POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+  
+  # web:
+  #   build: .
+  #   depends_on: 
+  #     - postgres
+  #     - redis
+  #   ports:
+  #     - 3000:3000
