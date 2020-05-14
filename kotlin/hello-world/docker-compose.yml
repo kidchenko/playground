@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  kotlin:
+    image: kotlin
+    build: .
+    ports:
+      - 3000
