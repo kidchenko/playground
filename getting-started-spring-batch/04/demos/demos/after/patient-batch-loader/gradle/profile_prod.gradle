@@ -1,0 +1,26 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+
+}
+
+def profiles = 'prod'
+if (project.hasProperty('no-liquibase')) {
+    profiles += ',no-liquibase'
+}
+
+bootRun {
+    args = []
+}
+
+processResources {
+    filesMatching('**/application.yml') {
+        filter {
+            it.replace('#project.version#', version)
+        }
+        filter {
+            it.replace('#spring.profiles.active#', profiles)
+        }
+    }
+}
+

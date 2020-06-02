@@ -1,0 +1,172 @@
+import org.gradle.internal.os.OperatingSystem
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url "http://repo.spring.io/plugins-release" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
+        classpath "io.spring.gradle:propdeps-plugin:0.0.9.RELEASE"
+    }
+}
+
+plugins {
+    id "net.ltgt.apt" version "0.13"
+    id "io.spring.dependency-management" version "1.0.4.RELEASE"
+}
+
+apply plugin: 'java'
+sourceCompatibility=1.8
+targetCompatibility=1.8
+assert System.properties['java.specification.version'] == '1.8'
+
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'propdeps'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'idea'
+apply plugin: 'project-report'
+
+defaultTasks 'bootRun'
+
+group = 'com.pluralsight.springbatch.patientbatchloader'
+version = '0.0.1-SNAPSHOT'
+
+description = 'Spring Batch project for Pluralsight course'
+
+jar {
+	enabled = true
+}
+
+bootJar {
+	classifier = 'boot'
+	launchScript()
+}
+
+springBoot {
+    mainClassName = 'com.pluralsight.springbatch.patientbatchloader.PatientBatchLoaderApp'
+    buildInfo()
+}
+
+if (OperatingSystem.current().isWindows()) {
+    task pathingJar(type: Jar) {
+        dependsOn configurations.runtime
+        appendix = 'pathing'
+
+        doFirst {
+            manifest {
+                attributes 'Class-Path': configurations.runtime.files.collect {
+                    it.toURI().toURL().toString().replaceFirst(/file:\/+/, '/').replaceAll(' ', '%20')
+                }.join(' ')
+            }
+        }
+    }
+
+    bootRun {
+        sourceResources sourceSets.main
+        dependsOn pathingJar
+        doFirst {
+            classpath = files("$buildDir/classes/java/main", "$buildDir/resources/main", pathingJar.archivePath)
+        }
+    }
+} else {
+    bootRun {
+        sourceResources sourceSets.main
+    }
+}
+
+test {
+    // uncomment if the tests reports are not generated
+    reports.html.enabled = false
+}
+
+task testReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/tests")
+    reportOn test
+}
+
+apply from: 'gradle/liquibase.gradle'
+
+if (project.hasProperty('prod')) {
+    apply from: 'gradle/profile_prod.gradle'
+} else {
+    apply from: 'gradle/profile_dev.gradle'
+}
+
+configurations {
+    providedRuntime
+    compile.exclude module: "spring-boot-starter-tomcat"
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url "http://repo.spring.io/plugins-release" }
+    maven { url "https://plugins.gradle.org/m2/" }
+}
+
+dependencies {
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
+    compile "com.fasterxml.jackson.core:jackson-annotations"
+    compile "com.fasterxml.jackson.core:jackson-databind"
+    compile "com.fasterxml.jackson.module:jackson-module-afterburner"
+    compile "org.hibernate:hibernate-core"
+    compile "com.zaxxer:HikariCP"
+    compile "org.apache.commons:commons-lang3:${commons_lang_version}"
+    compile "commons-io:commons-io:${commons_io_version}"
+    compile "javax.transaction:javax.transaction-api"
+    compile "org.hibernate:hibernate-envers"
+    compile "org.hibernate.validator:hibernate-validator"
+    compile "org.liquibase:liquibase-core"
+    compile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
+    compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-autoconfigure"
+    compile "org.springframework.boot:spring-boot-loader-tools"
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-starter-aop"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework:spring-context-support"
+    compile ("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile "org.springframework.boot:spring-boot-starter-undertow"
+    // Starter to include the Spring Batch dependencies via Spring Boot
+    compile "org.springframework.boot:spring-boot-starter-batch"
+
+    testCompile ("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
+    testCompile "org.springframework.boot:spring-boot-test"
+    // Spring Batch testing support
+    testCompile "org.springframework.batch:spring-batch-test"
+    testCompile "org.assertj:assertj-core"
+    testCompile "junit:junit"
+    testCompile "org.mockito:mockito-core"
+    testCompile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
+    testCompile "org.hamcrest:hamcrest-library"
+
+    optional ("org.springframework.boot:spring-boot-configuration-processor") {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
+}
+
+task cleanResources(type: Delete) {
+    delete 'build/resources'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4.1'
+}
+
+task stage(dependsOn: 'bootJar') {
+}
+
+compileJava.dependsOn processResources
+processResources.dependsOn cleanResources,bootBuildInfo
+bootBuildInfo.mustRunAfter cleanResources

@@ -1,0 +1,52 @@
+# ===================================================================
+# Spring Boot configuration for the "prod" profile.
+#
+# This configuration overrides the application.yml file.
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+logging:
+    level:
+        ROOT: INFO
+        com.pluralsight.springbatch.patientbatchloader: INFO
+
+server:
+    port: 8080
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+        min-response-size: 1024
+
+spring:
+    devtools:
+        restart:
+            enabled: false
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:file:./h2db/db/patientbatchloader-prod;
+        username: PatientBatchLoader
+        password:
+    h2:
+        console:
+            enabled: true
+    jpa:
+        database-platform: com.pluralsight.springbatch.patientbatchloader.config.FixedH2Dialect
+        database: H2
+        show-sql: true
+        properties:
+            hibernate.id.new_generator_mappings: true
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+    liquibase:
+        contexts: prod
+
+# ===================================================================
+# Application specific properties
+# ===================================================================
+
