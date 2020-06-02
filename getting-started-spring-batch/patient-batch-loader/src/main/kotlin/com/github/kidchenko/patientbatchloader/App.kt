@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class PatientBatchLoaderApplication
+class App
 
 fun main(args: Array<String>) {
-	runApplication<PatientBatchLoaderApplication>(*args)
+	runApplication<App>(*args)
 }
