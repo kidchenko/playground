@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/PatientDb
+    username: postgres
+    password: P@ssw0rd
+    driverClassName: org.postgresql.Driver
+  batch:
+    initialize-schema: \

@@ -1,0 +1,66 @@
+buildscript {
+
+	ext {
+		kotlinVersion = '1.3.70'
+		springBootVersion = '2.3.0.RELEASE'
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+		classpath("org.jetbrains.kotlin:kotlin-noarg:${kotlinVersion}")
+	}
+
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-allopen'
+apply plugin: 'kotlin-spring'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+	implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.batch:spring-batch-test:4.2.2.RELEASE'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+	testImplementation 'org.junit.vintage:junit-vintage-engine:5.6.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+sourceCompatibility = 1.8
+
+compileKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.8'
+	}
+}
+compileTestKotlin {
+	kotlinOptions {
+		freeCompilerArgs = ['-Xjsr305=strict']
+		jvmTarget = '1.8'
+	}
+}
