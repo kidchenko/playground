@@ -1,0 +1,49 @@
+2022-01-05 06:39:11.928 -03:00 [INF] Hello, world!
+2022-01-05 06:39:12.075 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:39:12.082 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 15
+2022-01-05 06:39:51.343 -03:00 [INF] Hello, world!
+2022-01-05 06:39:51.490 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:39:51.497 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 15
+2022-01-05 06:41:36.086 -03:00 [INF] Hello, world!
+2022-01-05 06:41:36.177 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:41:36.184 -03:00 [DBG] Number Request { number1 = 10, number2 = 0 }
+2022-01-05 06:41:36.187 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 17
+2022-01-05 06:41:59.728 -03:00 [INF] Hello, world!
+2022-01-05 06:41:59.820 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:41:59.826 -03:00 [DBG] Division Request { number1 = 10, number2 = 0 }
+2022-01-05 06:41:59.829 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 17
+2022-01-05 06:43:01.030 -03:00 [INF] Hello, world!
+2022-01-05 06:43:01.147 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:43:01.158 -03:00 [DBG] Division Request {"number1":10,"number2":0}
+2022-01-05 06:43:01.166 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 17
+2022-01-05 06:43:30.020 -03:00 [INF] Hello, world!
+2022-01-05 06:43:30.131 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:43:30.138 -03:00 [DBG] Division Request @{ number1 = 10, number2 = 0 }
+2022-01-05 06:43:30.141 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 17
+2022-01-05 06:43:47.241 -03:00 [INF] Hello, world!
+2022-01-05 06:43:47.359 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:43:47.362 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:43:47.371 -03:00 [DBG] Division Request {"number1":10,"number2":0}
+2022-01-05 06:43:47.381 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 18
+2022-01-05 06:44:04.885 -03:00 [INF] Hello, world!
+2022-01-05 06:44:04.983 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:44:04.986 -03:00 [DBG] Dividing 10 by 0
+2022-01-05 06:44:04.989 -03:00 [DBG] Division Request { number1 = 10, number2 = 0 }
+2022-01-05 06:44:04.994 -03:00 [DBG] Division Request {"number1":10,"number2":0}
+2022-01-05 06:44:05.002 -03:00 [ERR] Something went wrong
+System.DivideByZeroException: Attempted to divide by zero.
+   at Program.<Main>$(String[] args) in /Users/josebarbosa/kidchenko/playground/serilog/WriteToFileSink/Program.cs:line 19
