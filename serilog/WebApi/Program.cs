@@ -1,10 +1,12 @@
 using Serilog;
 using Serilog.Events;
+using Serilog.Formatting.Compact;
 
 Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
-            .WriteTo.Console()
+            .WriteTo.Console(new RenderedCompactJsonFormatter())
             .WriteTo.Seq("http://localhost:5341")
             .CreateLogger();
 
@@ -25,6 +27,8 @@ try
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
+
+    app.UseSerilogRequestLogging();
 
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
