@@ -6,6 +6,7 @@ Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
+            .Enrich.With(new ThreadIdEnricher())
             .WriteTo.Console(new RenderedCompactJsonFormatter())
             .WriteTo.Seq("http://localhost:5341")
             .CreateLogger();
