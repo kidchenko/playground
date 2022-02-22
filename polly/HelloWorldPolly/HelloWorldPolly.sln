@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.Client", "Chaos.Client\Chaos.Client.csproj", "{BB2E553B-2817-4EA3-8403-D86F670DD51F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.Api", "Chaos.Api\Chaos.Api.csproj", "{4589BBC0-DDD1-4DF9-8A32-3515B8D08095}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chaos.Domain", "Chaos.Domain\Chaos.Domain.csproj", "{2E529274-8073-4179-9EF4-438896EBDDAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB2E553B-2817-4EA3-8403-D86F670DD51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB2E553B-2817-4EA3-8403-D86F670DD51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB2E553B-2817-4EA3-8403-D86F670DD51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB2E553B-2817-4EA3-8403-D86F670DD51F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4589BBC0-DDD1-4DF9-8A32-3515B8D08095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4589BBC0-DDD1-4DF9-8A32-3515B8D08095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4589BBC0-DDD1-4DF9-8A32-3515B8D08095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4589BBC0-DDD1-4DF9-8A32-3515B8D08095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E529274-8073-4179-9EF4-438896EBDDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E529274-8073-4179-9EF4-438896EBDDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E529274-8073-4179-9EF4-438896EBDDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E529274-8073-4179-9EF4-438896EBDDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
