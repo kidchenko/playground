@@ -7,3 +7,9 @@ dotnet add package Serilog.Sinks.File
 # ASP .NET Core
 
 dotnet add package Serilog.AspNetCore
+
+
+# Remove sensible information
+
+
+dotnet add package Masking.Serilog
