@@ -8,9 +8,9 @@ public class GithubRepositoryChaosApiClient : IGithubRepository
 {
     private readonly HttpClient _httpClient;
 
-    public GithubRepositoryChaosApiClient(HttpClient httpClient)
+    public GithubRepositoryChaosApiClient(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("ApiClient");
 
         _httpClient.BaseAddress = new Uri("https://localhost:7010");
     }

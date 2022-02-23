@@ -14,7 +14,7 @@ app.MapGet("/repos", async (IGithubRepository githubRepository) =>
     var next = random.Next(1, 10);
     if (next <= 6)
     {
-        throw new Exception();
+        throw new Exception("Chaos Exception");
     }
     return await githubRepository.Get();
 });

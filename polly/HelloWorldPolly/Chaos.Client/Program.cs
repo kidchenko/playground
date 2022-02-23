@@ -3,9 +3,25 @@
 using Chaos.Domain;
 using HelloWorldPolly;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
+using Polly.Extensions.Http;
 
 await using var provider = new ServiceCollection()
-    .AddHttpClient<GithubRepositoryChaosApiClient>()
+    .AddHttpClient("ApiClient" )
+    .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+    {
+        TimeSpan.FromSeconds(1),
+        TimeSpan.FromSeconds(2),
+        TimeSpan.FromSeconds(3)
+    }, onRetry: (outcome, timespan, retryAttempt, context) =>
+        {
+            Console.WriteLine($"Delaying for {timespan.TotalMilliseconds}ms, then making retry {retryAttempt}.");
+        }
+    ))
+    .AddTransientHttpErrorPolicy(builder => builder.CircuitBreakerAsync(
+        handledEventsAllowedBeforeBreaking: 10,
+        durationOfBreak: TimeSpan.FromSeconds(30)
+    ))
     .Services
     .AddScoped<IGithubRepository, GithubRepositoryChaosApiClient>()
     .BuildServiceProvider();
@@ -34,19 +50,14 @@ while (true)
     }
     finally
     {
-        Console.WriteLine("Waiting 3 seconds:");
+        Console.WriteLine("Waiting 10 seconds:");
 
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        Console.WriteLine(1);
+        await Task.Delay(TimeSpan.FromSeconds(5));
+        Console.WriteLine(5);
 
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        Console.WriteLine(2);
+        await Task.Delay(TimeSpan.FromSeconds(5));
+        Console.WriteLine(10);
 
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        Console.WriteLine(3);
         Console.WriteLine();
     }
 }
-
-
-Console.WriteLine("Program finished");
