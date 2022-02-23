@@ -14,11 +14,39 @@ using var scope = provider.CreateScope();
 
 var githubRepository = scope.ServiceProvider.GetRequiredService<IGithubRepository>();
 
-var repositories = await githubRepository.Get();
-
-foreach (var repository in repositories)
+while (true)
 {
-    Console.WriteLine(repository);
+    try
+    {
+        var repositories = await githubRepository.Get();
+
+        foreach (var repository in repositories)
+        {
+            Console.WriteLine(repository);
+        }
+        Console.WriteLine();
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine("API call failed!");
+        Console.WriteLine(e);
+        Console.WriteLine();
+    }
+    finally
+    {
+        Console.WriteLine("Waiting 3 seconds:");
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        Console.WriteLine(1);
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        Console.WriteLine(2);
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        Console.WriteLine(3);
+        Console.WriteLine();
+    }
 }
+
 
 Console.WriteLine("Program finished");

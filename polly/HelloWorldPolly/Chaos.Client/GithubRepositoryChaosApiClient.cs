@@ -12,7 +12,7 @@ public class GithubRepositoryChaosApiClient : IGithubRepository
     {
         _httpClient = httpClient;
 
-        _httpClient.BaseAddress = new Uri(" https://localhost:7010");
+        _httpClient.BaseAddress = new Uri("https://localhost:7010");
     }
 
     public async Task<IReadOnlyCollection<Repository>> Get()
