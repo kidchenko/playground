@@ -5,9 +5,9 @@ public class GithubRepository : IGithubRepository
 {
     private readonly HttpClient _httpClient;
 
-    public GithubRepository(HttpClient httpClient)
+    public GithubRepository(IHttpClientFactory httpClientFactory)
     {
-        _httpClient = httpClient;
+        _httpClient = httpClientFactory.CreateClient("GithubClient");
         // // these lines do the same as the line bellow, just a different syntax
         _httpClient.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
@@ -20,11 +20,7 @@ public class GithubRepository : IGithubRepository
 
     public async Task<IReadOnlyCollection<Repository>> Get()
     {
-        var raw = await _httpClient.GetStringAsync("/orgs/dotnet/repos");
         var repos = await _httpClient.GetFromJsonAsync<IEnumerable<Repository>>("/orgs/dotnet/repos");
-
-
-        // Console.Write(raw);
 
         if (repos is null)
         {
