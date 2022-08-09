@@ -1,0 +1,29 @@
+<div class="input-group input-group-lg">
+	<div class="input-group-prepend">
+		<span class="input-group-text">New Todo Item</span>
+	</div>
+	<input type="text" class="form-control"
+		   placeholder="Enter your text here..."
+		   @bind-value="Text" @bind-value:event="oninput"/>
+	<div class="input-group-append">
+		<button class="btn btn-secondary @buttonDisabled" @onclick="NewItem">Add (Enter)</button>
+	</div>
+</div>
+
+@code {
+
+	[Parameter]
+	public Action<string> OnNewItem { get; set; }
+
+	void NewItem()
+	{
+		OnNewItem?.Invoke(Text);
+		Text = "";
+	}
+
+	string Text { get; set; }
+
+
+
+	string buttonDisabled => string.IsNullOrWhiteSpace(Text) ? "disabled" : null;
+}

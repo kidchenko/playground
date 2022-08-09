@@ -1,0 +1,42 @@
+﻿@page "/employees"
+
+@using EmployeeReport.Web.Data
+@inject EmployeeService employeeService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in employees)
+            {
+                <tr>
+                    <td>@employee.Name</td>
+                    <td>@employee.Age</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+	private EmployeeViewModel[] employees;
+
+	protected override async Task OnInitializedAsync()
+	{
+		employees = await this.employeeService.GetForecastAsync();
+	}
+}

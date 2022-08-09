@@ -1,0 +1,15 @@
+﻿@page "/"
+
+<h1>Hello, world!</h1>
+
+<SurveyPrompt Title="Do you like it?" />
+
+<TodoList Todos="@todos" />
+
+@code {
+	IList<Todo> todos = new List<Todo>
+	{
+		new Todo {Text = "Watch videos about blazor"},
+		new Todo {Text = "Create own Blazor app"},
+	};
+}
