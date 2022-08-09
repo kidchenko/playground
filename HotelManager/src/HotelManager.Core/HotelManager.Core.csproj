@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+    <Folder Include="Entities\" />
+    <Folder Include="ValueObjects\" />
+    <Folder Include="ValueObjects\Rates\" />
+  </ItemGroup>
+</Project>
