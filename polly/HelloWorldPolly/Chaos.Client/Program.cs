@@ -19,7 +19,7 @@ await using var provider = new ServiceCollection()
         }
     ))
     .AddTransientHttpErrorPolicy(builder => builder.CircuitBreakerAsync(
-        handledEventsAllowedBeforeBreaking: 15,
+        handledEventsAllowedBeforeBreaking: 2,
         durationOfBreak: TimeSpan.FromSeconds(30)
     ))
     .Services

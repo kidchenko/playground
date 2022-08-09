@@ -1,10 +1,9 @@
 using Chaos.Domain;
 using Polly.Contrib.Simmy;
-using Polly.Contrib.Simmy.Outcomes;
 
-AsyncInjectOutcomePolicy<HttpResponseMessage> faultPolicy = MonkeyPolicy.InjectFaultAsync<HttpResponseMessage>(
+var faultPolicy = MonkeyPolicy.InjectFaultAsync<HttpResponseMessage>(
     new HttpRequestException("Simmy threw an exception"),
-    injectionRate: .7,
+    injectionRate: .90,
     enabled: () => true
 );
 
