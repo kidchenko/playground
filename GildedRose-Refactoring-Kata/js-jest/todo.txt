@@ -1,0 +1,5 @@
+- write more tests to cover current scenarios
+- how to solve the ifs using maps (hash) and filters
+- quality.Increase() and quality.Decrease()
+- replace quality > 0 to a method
+- category of items? is there any relationship between the  name
