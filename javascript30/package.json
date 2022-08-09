@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
-    "serve": "^7.2.0"
+    "serve": "^10.1.2"
   },
   "scripts": {
     "start": "serve"
