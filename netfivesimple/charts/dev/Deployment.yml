@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netfivesample-deploy
+  labels:
+    app: netfivesample-app
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netfivesample-app
+  template:
+    metadata:
+      labels:
+        app: netfivesample-app
+    spec:
+      containers:
+        - name: netfivesample-app-cn
+          image: registry.gitlab.com/puksigon/netfivesimple/netfivesimple:0.1.0-alpha.17-766e2fa
+          ports:
+            - containerPort: 80
+          env:
+            - name: TZ
+              value: Asia/Bangkok
+            - name: 'ASPNETCORE_ENVIRONMENT'
+              value: 'Development'
+            - name: 'ASPNETCORE_FORWARDEDHEADERS_ENABLED'
+              value: 'true'
+
+      #     volumeMounts:
+      #       - name: azad-config
+      #         mountPath: /app/azad.settings.json
+      #         subPath: azad.settings.json
+
+      # volumeMounts:
+      #   - name: azad-config
+      #     configMap:
+      #       name: saxio-app-ad-config
+      #       items:
+      #         - key: azad-conf
+      #           path: azad.settings.json

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="3.0.0" />
+    <PackageReference Include="BlazorTable" Version="1.13.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCorePackageVesion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCorePackageVesion)" PrivateAssets="all" />
+    <PackageReference Include="MonacoRazor" Version="1.0.0-20201105.1" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\blazoract.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorWebAssemblyLazyLoad Include="BlazorTable.dll" />
+  </ItemGroup>
+
+  <Target Name="WatchScopedCss" BeforeTargets="GenerateWatchList">
+    <ItemGroup>
+      <Watch Include="**\*.razor.css" />
+    </ItemGroup>
+  </Target>
+
+</Project>

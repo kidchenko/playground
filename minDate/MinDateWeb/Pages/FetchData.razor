@@ -1,0 +1,41 @@
+﻿@page "/fetchdata"
+@using MinDate.ViewModels
+@inject HttpClient Http
+
+<h1>Time Zone Converter</h1>
+
+<p>Provides time zone conversions taking into account Daylight Saving Time (DST),
+    local time zone and accepts present, past, or future dates.</p>
+
+@if (_dates == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var date in _dates)
+        {
+            <li href="#" class="list-group-item list-group-item-action mb-2" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@date.Id</h5>
+                        <small>@date.Now</small>
+                    </div>
+                    <small>@date.Now</small>
+                </div>
+                <p class="mb-1">@date.Name</p>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+
+    private NowResponse[] _dates;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _dates = await Http.GetFromJsonAsync<NowResponse[]>("api/now");
+    }
+}

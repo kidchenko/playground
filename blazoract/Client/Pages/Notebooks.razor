@@ -1,0 +1,31 @@
+@page "/notebooks"
+@using BlazorTable
+@inject NavigationManager navigation
+@inject NotebookService content
+
+<div class="page">
+    <MainToolbar />
+
+    <Table TableItem="blazoract.Shared.Notebook" Items="notebooks" RowClickAction="ShowNotebook">
+        <Column TableItem="blazoract.Shared.Notebook" Title="Title" Field="@(x => x.Title)" Sortable="true"
+            Filterable="true" Width="50%" />                 
+        <Column TableItem="blazoract.Shared.Notebook" Title="Created At" Field="@(x => x.Created)" Sortable="true"
+            Width="25%" />
+        <Column TableItem="blazoract.Shared.Notebook" Title="Updated At" Field="@(x => x.Updated)" Sortable="true"
+            Width="25%" />
+    </Table>
+</div>
+
+@code {
+    private IEnumerable<blazoract.Shared.Notebook> notebooks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        notebooks = await content.GetNotebooks();
+    }
+
+    private void ShowNotebook(blazoract.Shared.Notebook item)
+    {
+        navigation.NavigateTo($"notebook/{item.NotebookId}");
+    }
+}

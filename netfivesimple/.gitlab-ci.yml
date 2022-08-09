@@ -1,0 +1,137 @@
+services:
+  - name: docker:dind
+    entrypoint: ['env', '-u', 'DOCKER_HOST']
+    command: ['dockerd-entrypoint.sh']
+
+variables:
+  test: '*.Test'
+  DOCKER_DIRVER: 'overlay2'
+  DOCKER_TLS_CERTDIR: ''
+  DOCKER_HOST: tcp://docker:2375
+  PROJECT_NAME: netfivesimple
+
+.build-template: &build-template
+  except:
+    changes:
+      - charts/**/*
+  variables:
+    GIT_DEPTH: 0
+  stage: build
+  image: docker:dind
+  services:
+    - docker:dind
+  artifacts:
+    paths:
+      - LastImage.txt
+    expire_in: 1 hr
+
+.prepare-build: &prepare-build
+  - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+
+.prep-semver: &prep-semver # Crucial Line #3 Main project path
+  - MainProjectPath="./NetFiveSample"
+  - SEMVER=$(cat LastImage.txt)
+  # - SEMVER=$(gitversion "$MainProjectPath" -output json -showvariable SemVer)-$(gitversion "$MainProjectPath" -output json -showvariable ShortSha) # gitversion before this stage
+  # - echo $SEMVER
+  # - echo "$CI_REGISTRY_IMAGE/$PROJECT_NAME:$SEMVER" > LastImage.txt
+  # - echo "Nuget Registry url is $NUGET_REGISTRY_URL"
+
+stages:
+  - dependency-check
+  - determine-gitsemver
+  - build
+
+# Dependency check Section ============================================
+owasp_dependency_check:
+  image:
+    name: registry.gitlab.com/gitlab-ci-utils/docker-dependency-check:latest
+    entrypoint: ['']
+  stage: dependency-check
+  only:
+    - develop
+    - staging
+    - master
+  except:
+    changes:
+      - charts/**/*
+  script:
+    # Job will scan the project root folder and fail if any vulnerabilities with CVSS > 0 are found
+    - /usr/share/dependency-check/bin/dependency-check.sh --scan "./" --format ALL --project "$CI_PROJECT_NAME" --failOnCVSS 0
+    # Dependency Check will only fail the job based on CVSS scores, and in some cases vulnerabilities do not
+    # have CVSS scores (e.g. those from NPM audit), so they don't cause failure.  To fail for any vulnerabilities
+    # grep the resulting report for any "vulnerabilities" sections and exit if any are found (count > 0).
+    - if [ $(grep -c "vulnerabilities" dependency-check-report.json) -gt 0 ]; then exit 2; fi
+  allow_failure: true
+  artifacts:
+    expire_in: 24 hr
+    when: always
+    paths:
+      # Save the HTML and JSON report artifacts
+      - './dependency-check-report.html'
+      - './dependency-check-report.json'
+
+# GitVersion Section ============================================
+determine-gitsemver:
+  stage: determine-gitsemver
+  image:
+    name: gittools/gitversion:5.7.1
+    entrypoint: ['']
+  only:
+    - develop
+    - staging
+    - master
+  except:
+    changes:
+      - charts/**/*
+  variables:
+    GIT_DEPTH: 0
+  script:
+    - echo $PWD
+    - echo ls -la
+    - SEMVER=$(/tools/dotnet-gitversion "$PWD" -output json -showvariable SemVer)-$(/tools/dotnet-gitversion "$PWD" -output json -showvariable ShortSha)
+    - echo $SEMVER
+    - echo "$SEMVER" > LastImage.txt
+  artifacts:
+    paths:
+      - LastImage.txt
+    expire_in: 1 hr
+
+# Build Section ============================================
+build-develop:
+  only:
+    - develop
+  <<: *build-template
+  before_script:
+    - *prepare-build
+  script:
+    - *prep-semver
+    # Crucial Line
+    - docker build -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:dev.latest
+      -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:$SEMVER .
+    - docker push -a $CI_REGISTRY_IMAGE/$PROJECT_NAME
+
+build-staging:
+  only:
+    - staging
+  <<: *build-template
+  before_script:
+    - *prepare-build
+  script:
+    - *prep-semver
+    # Crucial Line
+    - docker build -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:staging.latest
+      -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:$SEMVER .
+    - docker push -a $CI_REGISTRY_IMAGE/$PROJECT_NAME
+
+build-prod:
+  only:
+    - master
+  <<: *build-template
+  before_script:
+    - *prepare-build
+  script:
+    - *prep-semver
+    # Crucial Line
+    - docker build -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:latest
+      -t $CI_REGISTRY_IMAGE/$PROJECT_NAME:$SEMVER .
+    - docker push -a $CI_REGISTRY_IMAGE/$PROJECT_NAME

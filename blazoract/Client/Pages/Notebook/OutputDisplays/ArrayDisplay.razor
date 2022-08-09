@@ -1,0 +1,25 @@
+﻿<div class="scroller">
+    <table>
+        <Virtualize Items="Data" Context="entry">
+            @if (entry is Array row) // 2D array
+            {
+                <tr @key="entry">
+                    @foreach (var cell in row)
+                    {
+                        <td>@cell</td>
+                    }
+                </tr>
+            }
+            else // Any other case
+            {
+                <tr>
+                    <td>@entry</td>
+                </tr>
+            }
+        </Virtualize>
+    </table>
+</div>
+
+@code {
+    [Parameter] public ICollection<object> Data { get; set; }
+}

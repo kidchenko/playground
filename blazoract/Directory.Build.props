@@ -1,0 +1,5 @@
+<Project>
+    <PropertyGroup>
+        <AspNetCorePackageVesion>5.0.0</AspNetCorePackageVesion>
+    </PropertyGroup>
+</Project>

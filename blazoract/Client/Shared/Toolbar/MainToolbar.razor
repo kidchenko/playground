@@ -1,0 +1,39 @@
+@inject NotebookService content
+@inject NavigationManager navigation
+
+<div class="main-toolbar">
+    <h2><a href="">blazoract</a></h2>
+    @if (!string.IsNullOrEmpty(NotebookId))
+    {
+        <NotebookName NotebookId="@NotebookId" />
+    }
+    <div class="right">
+        <button @onclick="NewNotebook">New</button>
+        <button @onclick="SaveNotebook">Save</button>
+        <button @onclick="GoToNotebooks">View All</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string NotebookId { get; set; }
+
+    private async Task NewNotebook()
+    {
+        var newNotebook = await content.CreateNewNotebook();
+        navigation.NavigateTo($"/notebook/{newNotebook.NotebookId}");
+    }
+
+    private async Task SaveNotebook()
+    {
+        if (NotebookId != null)
+        {
+            var notebook = await content.GetById(NotebookId);
+            await content.Save(notebook);
+        }
+    }
+
+    private void GoToNotebooks()
+    {
+        navigation.NavigateTo("/notebooks");
+    }
+}

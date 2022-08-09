@@ -1,0 +1,13 @@
+<div contenteditable="true" class="text-cell">
+    @if (Cell != null)
+    {
+        @Cell.Content
+    } else {
+        <p class="placeholder">Enter your text here...</p>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Cell Cell { get; set; }
+}

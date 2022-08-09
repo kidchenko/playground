@@ -1,0 +1,48 @@
+@inject IJSRuntime JSRuntime
+@inject NotebookService content
+@implements IAsyncDisposable
+
+<div class="notebook-name" contenteditable="true" @ref="nameDiv">
+    @notebook?.Title
+</div>
+
+@code {
+    [Parameter]
+    public string NotebookId { get; set; }
+
+    private Notebook notebook;
+    private ElementReference nameDiv;
+    private IJSObjectReference module;
+    private DotNetObjectReference<NotebookName> thisReference;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        notebook = null;
+        notebook = await content.GetById(NotebookId);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            module = await JSRuntime.InvokeAsync<IJSObjectReference>(
+                "import", "./js/notebook-name.js");
+
+            thisReference = DotNetObjectReference.Create(this);
+            await module.InvokeAsync<string>("registerListener", nameDiv, thisReference);
+        }
+    }
+
+    [JSInvokable]
+    public async Task RenameNotebook(string newName)
+    {
+        notebook.Title = newName;
+        await content.Save(notebook);
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        thisReference.Dispose();
+        await module.DisposeAsync();
+    }
+}

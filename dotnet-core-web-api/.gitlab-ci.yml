@@ -1,0 +1,38 @@
+stages:
+  - build
+  - deploy
+
+kubeops-build:
+  services:
+    - docker:19.03.1-dind
+  image:
+    name: docker:19.03.13-git
+  stage: build
+  script:
+    - docker build -t kubeopstester/dotnet-core-web-api:$CI_COMMIT_SHA .
+    - echo $DOCKER_PASSWORD | docker login -u kubeopstester --password-stdin
+    - docker push kubeopstester/dotnet-core-web-api:$CI_COMMIT_SHA
+  only:
+    - develop
+
+kubeops-deploy:
+  image:
+    name: alpine:3.8
+  stage: deploy
+  script:
+    - apk add --no-cache git wget bash
+    - git clone https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@gitlab.com/kubeops-skills/dotnet-configuration.git
+    - cd dotnet-configuration
+    - git checkout develop
+    - cd dotnet-core-web-api
+    - wget -O yq https://github.com/mikefarah/yq/releases/download/3.4.1/yq_linux_amd64
+    - chmod ug+x ./yq
+    - ./yq w -i deployment.yaml "spec.template.spec.containers[0].image" kubeopstester/dotnet-core-web-api:$CI_COMMIT_SHA
+    - git config --global user.email "gitlab@gitlab.com"
+    - git config --global user.name "GitLab CI/CD"
+    - git commit -am 'develop image update'
+    - git push origin develop
+  only:
+    - develop
+  needs:
+    - job: kubeops-build

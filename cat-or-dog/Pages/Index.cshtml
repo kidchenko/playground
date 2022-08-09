@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Do you see a cat or dog?</h1>
+    <p>
+        <a class="btn btn-secondary" href="/">Try Again</a>
+    </p>
+    <img src="@Model.Picture" class="img-fluid" alt="Cat or dog picture">
+    <p class="mt-3">
+            @if (Model.IsKittenButtonEnabled)
+            {
+                <a class="btn btn-primary" href="/">Cat</a>
+            }
+            @if (Model.IsPuppyButtonEnabled)
+            {
+                <a class="btn btn-info" href="/">Dog</a>
+            }
+        </p>
+</div>

@@ -1,0 +1,49 @@
+@inject NotebookService content
+@implements IDisposable
+
+<div class="cells">
+    @if (notebook != null && notebook.Cells != null)
+    {
+        for (var index = 0; index < notebook.Cells.Count; index++)
+        {
+            var cell = notebook.Cells[index];
+            if (cell.Type == CellType.Code)
+            {
+                <CodeCell @key="@cell" Cell="@cell" OnCodeChange="SaveNotebook"></CodeCell>
+            }
+            else if (cell.Type == CellType.File)
+            {
+                <FileCell @key="@cell" Cell="@cell"></FileCell>
+            }
+            else
+            {
+                <TextCell @key="@cell" Cell="@cell"></TextCell>
+            }
+
+            <NewCell Position="@index" Notebook="@notebook"></NewCell>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string NotebookId { get; set; }
+    private blazoract.Shared.Notebook notebook;
+
+    protected override async Task OnInitializedAsync()
+    {
+        notebook = await content.GetById(NotebookId);
+        content.OnChange += StateHasChanged;
+    }
+
+    private async Task SaveNotebook()
+    {
+        notebook = await content.GetById(NotebookId);
+        await content.Save(notebook);
+    }
+
+    void IDisposable.Dispose()
+    {
+        content.OnChange -= StateHasChanged;
+    }
+}

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netfivesample-deploy
+  labels:
+    app: netfivesample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netfivesample-app
+  template:
+    metadata:
+      labels:
+        app: netfivesample-app
+    spec:
+      containers:
+        - name: netfivesample-app-cn
+          image: registry.gitlab.com/puksigon/netfivesimple/netfivesimple:staging.latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: TZ
+              value: Asia/Bangkok
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: "Staging"

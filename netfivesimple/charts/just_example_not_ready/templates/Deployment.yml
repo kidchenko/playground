@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netfivesample-deploy
+  labels:
+    app: netfivesample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netfivesample-app
+    spec:
+      containers:
+        - name: netfivesample-app-cn
+          image: {{ .deploy_setting.image }}
+          ports:
+            - containerPort: 80
+          env:

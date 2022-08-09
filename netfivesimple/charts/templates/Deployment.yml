@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netfivesample-deploy
+  labels:
+    app: netfivesample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: netfivesample-app
+    spec:
+      containers:
+        - name: netfivesample-app-cn
+          image: {{image_url}}
+          ports:
+            - containerPort: 80
+          env:
+            - name: TZ
+              value: Asia/Bangkok
+            - name: "ASPNETCORE_ENVIRONMENT"
+              value: {{aspnet_env}}

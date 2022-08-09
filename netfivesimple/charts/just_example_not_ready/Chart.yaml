@@ -1,0 +1,7 @@
+apiVersion: v1
+description: NetFiveSample Deployment Helm Chart
+name: netfivesample
+version: 1.0.0
+appVersion: 0.1.0
+maintainers:
+  - name: Bawornsit.c

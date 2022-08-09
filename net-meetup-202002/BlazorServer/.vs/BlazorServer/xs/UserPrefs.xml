@@ -1,0 +1,26 @@
+﻿<Properties StartupConfiguration="{F7C3C45F-BBA8-4C41-B9E5-CDA748C32CA1}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Todo.razor">
+    <Files>
+      <File FileName="Todo.razor" Line="1" Column="14" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="BlazorServer" expanded="True">
+            <Node name="BlazorServer" expanded="True">
+              <Node name="Pages" expanded="True" />
+              <Node name="Todo.razor" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.BlazorServer PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: saxio-app-ad-config
+  labels:
+    app: netfivesample-app
+data:
+  azad-conf: |
+    {
+      "AzureAd": {
+          "Instance": "https://saxniob2c.b2clogin.com",
+          "ClientId": "d2c5fa29-d665-4771-bf69-95489e50f357",
+          "Domain": "saxniob2c.onmicrosoft.com",
+          "TenantId": "666868a9-7ee2-4d62-82be-00ba4b1d2e5b",
+          "SignUpSignInPolicyId": "B2C_1_default",
+          "CallbackPath": "/signin-oidc"
+      }
+    }

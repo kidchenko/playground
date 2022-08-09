@@ -1,0 +1,2 @@
+deploy_setting:
+  image: registry.gitlab.com/puksigon/netfivesimple/netfivesimple:dev.latest

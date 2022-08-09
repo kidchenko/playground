@@ -1,0 +1,22 @@
+assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-scheme: MajorMinorPatchTag
+mode: ContinuousDeployment
+branches:
+  production:
+    regex: ^production$
+    #tag: ''
+    increment: Minor
+    source-branches: ['master', 'develop', 'feature', 'hotfix']
+  develop:
+    regex: ^develop$
+    #tag: 'dev' #Default is "alpha"
+    increment: Patch
+  release:
+    regex: ^release/.*
+    is-release-branch: false
+  feature:
+    regex: ^feature/.*
+    source-branches: ['master', 'develop', 'feature', 'hotfix']
+ignore:
+  sha: []
+merge-message-formats: {}
