@@ -1,0 +1,16 @@
+{
+  "name": "poker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "poker project",
+  "repository": "git@github.com:thelifeguard-tw/poker.git",
+  "author": "myob-pursuit@thoughtworks.com",
+  "license": "MIT",
+  "scripts": {
+    "start-client" : "yarn workspace client start",
+    "test-client" : "yarn workspace client test"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
