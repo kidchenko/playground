@@ -1,0 +1,33 @@
+{
+  "name": "poker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "poker project",
+  "repository": "git@github.com:thelifeguard-tw/poker.git",
+  "author": "myob-pursuit@thoughtworks.com",
+  "license": "MIT",
+  "scripts": {
+    "start-client": "yarn workspace client start",
+    "test-client": "yarn workspace client test",
+    "lint-client": "yarn workspace client eslint . --ext .js,.jsx,.ts,.tsx",
+    "format-client": "yarn workspace client eslint . --fix --ext .js,.jsx,.ts,.tsx"
+  },
+  "lint-staged": {
+    "packages/**/*.{js,jsx,ts,tsx}": [
+      "yarn format-client"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test-client --watchAll=false"
+    }
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2"
+  }
+}

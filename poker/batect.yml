@@ -1,0 +1,41 @@
+containers:
+  poker-game:
+    image: node:14.2.0-alpine3.11
+    volumes:
+      - local: .
+        container: /code
+        options: cached
+      - type: cache
+        name: node_modules
+        container: /code/node_modules
+    working_directory: /code
+    run_as_current_user:
+      enabled: true
+      home_directory: /home/container-user
+    enable_init_process: true
+
+tasks:
+  start-game:
+    description: Start the poker game
+    run:
+      container: poker-game
+      command: yarn start-client
+      ports:
+        - local: 3000
+          container: 3000
+    prerequisites:
+      - install-deps
+
+  install-deps:
+    description: Run initial yarn install for node_modules cache
+    run:
+      container: poker-game
+      command: yarn --network-timeout 60000
+
+  run-unit-tests:
+    description: Run the unit tests
+    run:
+      container: poker-game
+      command: yarn test-client --watchAll=false
+    prerequisites:
+      - install-deps
